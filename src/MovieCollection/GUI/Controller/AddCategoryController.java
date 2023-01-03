@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -20,6 +21,14 @@ public class AddCategoryController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    private void displayError(Throwable t)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("!!ERROR!!");
+        alert.setHeaderText("Something went wrong, \n ERROR:      " + t.getMessage());
+        alert.showAndWait();
     }
 
     public void ConfirmAddMovie(ActionEvent actionEvent) {

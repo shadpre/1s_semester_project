@@ -1,16 +1,16 @@
 package MovieCollection.GUI.Controller;
 
+import MovieCollection.BE.Category;
+import MovieCollection.BE.Movie;
 import MovieCollection.GUI.Model.IndexDataModel;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -65,6 +65,21 @@ public class IndexViewController implements Initializable {
     public void deleteCategory(ActionEvent actionEvent) {
         try {
             System.out.println("Delete Category");
+
+            Dialog<Category> deleteSongDialog = new ChoiceDialog<>(null, indexDataModel.getCategoryObservableList());
+            deleteSongDialog.setGraphic(null);
+            deleteSongDialog.setHeaderText(null);
+            deleteSongDialog.setTitle("Delete a Cat");
+            deleteSongDialog.setContentText("Delete Category: ");
+            var result = deleteSongDialog.showAndWait();
+            result.ifPresent(selectedCategory -> {
+                try {
+                    indexDataModel.deleteCategory(selectedCategory);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
         } catch (Exception e) {
             displayError(e);
         }
@@ -73,6 +88,21 @@ public class IndexViewController implements Initializable {
     public void deleteMovie(ActionEvent actionEvent) {
         try {
             System.out.println("Delete movies");
+
+            Dialog<Movie> deleteSongDialog = new ChoiceDialog<>(null, indexDataModel.getMovieObservableList());
+            deleteSongDialog.setGraphic(null);
+            deleteSongDialog.setHeaderText(null);
+            deleteSongDialog.setTitle("Delete a Movie");
+            deleteSongDialog.setContentText("Delete Movie: ");
+            var result = deleteSongDialog.showAndWait();
+            result.ifPresent(selectedMovie -> {
+                try {
+                    indexDataModel.deleteMovie(selectedMovie);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
         } catch (Exception e) {
             displayError(e);
         }

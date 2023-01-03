@@ -1,13 +1,26 @@
 package MovieCollection.GUI.Model;
 
+import MovieCollection.BE.Category;
+import MovieCollection.BE.Movie;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class IndexDataModel {
+    private ObservableList movieObservableList;
+    private ObservableList categoryObservableList;
+
     public IndexDataModel() {
 
+    }
+
+    public ObservableList getMovieObservableList() {
+        return movieObservableList;
+    }
+    public ObservableList getCategoryObservableList() {
+        return categoryObservableList;
     }
 
     public void openAddMovieWindow() throws Exception{
@@ -26,11 +39,17 @@ public class IndexDataModel {
         stage.showAndWait();
     }
 
-    public void openDeleteCategory() throws Exception {
+    public void deleteCategory(Category selectedCategory) throws Exception {
+        if (selectedCategory == null || !categoryObservableList.contains(selectedCategory))  throw new Exception("Item Does Not Exist");
+
+        //TODO DELETE CATEGORY
 
     }
 
-    public void openDeleteMovie() throws Exception {
+    public void deleteMovie(Movie selectedMovie) throws Exception {
+        if (selectedMovie == null || !movieObservableList.contains(selectedMovie))  throw new Exception("Item Does Not Exist");
+
+        //TODO DELETE MOVIE
 
     }
 }
