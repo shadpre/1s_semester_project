@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="104.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MovieCollection.GUI.Controller.AddCategoryController">
    <children>
       <Label layoutX="34.0" layoutY="22.0" text="Add Category">

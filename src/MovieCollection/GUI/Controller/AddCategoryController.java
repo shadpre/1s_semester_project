@@ -1,5 +1,6 @@
 package MovieCollection.GUI.Controller;
 
+import MovieCollection.GUI.Model.IndexDataModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,10 +18,11 @@ public class AddCategoryController implements Initializable {
     @FXML private TextField txtFieldCategoryName;
     @FXML private Button btnConfirm;
     @FXML private Button btnCancel;
+    private IndexDataModel indexDataModel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        indexDataModel = new IndexDataModel();
     }
 
     private void displayError(Throwable t)

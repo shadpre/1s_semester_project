@@ -1,6 +1,7 @@
 package MovieCollection.GUI.Controller;
 
 import MovieCollection.BE.Movie;
+import MovieCollection.GUI.Model.IndexDataModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -25,10 +26,12 @@ public class AddMovieController extends Application {
     public Button btnAddCombobox;
     public TextField txtFieldCCat;
 
+    private IndexDataModel indexDataModel;
     private ArrayList <String> categories;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        indexDataModel = new IndexDataModel();
         categories = new ArrayList<>();
     }
 
@@ -71,6 +74,7 @@ public class AddMovieController extends Application {
             if (comboBoxCategory.getValue() == null || comboBoxCategory.getValue().equals("")) return;
 
             String value = (String) comboBoxCategory.getValue();
+
             if (categories.contains(value)) return;
 
             categories.add(value);
