@@ -1,14 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="MovieCollection.GUI.Controller.IndexViewController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="457.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MovieCollection.GUI.Controller.IndexViewController">
+   <children>
+      <GridPane layoutX="14.0" layoutY="14.0" prefHeight="377.0" prefWidth="689.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.33331298828125" minWidth="10.0" prefWidth="161.6666463216146" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.0000305175781" minWidth="10.0" prefWidth="188.66670735677087" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.9999694824219" minWidth="10.0" prefWidth="339.33329264322913" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="183.0" minHeight="10.0" prefHeight="36.33334732055664" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="343.66665267944336" minHeight="10.0" prefHeight="341.66665267944336" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ListView fx:id="listViewSubject" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+            <ListView fx:id="listViewCategory" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TreeTableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+              <columns>
+                <TreeTableColumn fx:id="treeIMDBRating" prefWidth="88.00006103515625" text="IMDB Ratting" />
+                <TreeTableColumn fx:id="TreeTittle" prefWidth="88.66661834716797" text="Tittle" />
+                  <TreeTableColumn fx:id="TreeTime" prefWidth="80.66670227050781" text="Time" />
+                  <TreeTableColumn fx:id="TreeOwnRatting" prefWidth="79.33336385091144" text="Own Ratting" />
+              </columns>
+            </TreeTableView>
+            <Label prefHeight="38.0" prefWidth="155.0" text="Subject">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label prefHeight="38.0" prefWidth="155.0" text="Category" GridPane.columnIndex="1">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label prefHeight="38.0" prefWidth="155.0" text="Data" GridPane.columnIndex="2">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <GridPane layoutX="14.0" layoutY="399.0" prefHeight="50.0" prefWidth="689.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="btnAddMovie" mnemonicParsing="false" onAction="#addMovie" prefHeight="41.0" prefWidth="125.0" text="Add Movie" />
+            <Button fx:id="btnAddCategory" mnemonicParsing="false" onAction="#addCategory" prefHeight="41.0" prefWidth="125.0" text="Add Category" GridPane.columnIndex="1" />
+            <Button fx:id="btnDeleteCategory" mnemonicParsing="false" onAction="#deleteCategory" prefHeight="41.0" prefWidth="125.0" text="Delete Category" GridPane.columnIndex="3" />
+            <Button fx:id="btnDeleteMovie" mnemonicParsing="false" onAction="#deleteMovie" prefHeight="41.0" prefWidth="125.0" text="Delete Movie" GridPane.columnIndex="2" />
+         </children>
+      </GridPane>
+   </children>
 </AnchorPane>
