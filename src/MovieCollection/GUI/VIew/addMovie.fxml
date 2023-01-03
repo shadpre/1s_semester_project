@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MovieCollection.GUI.Controller.AddMovieController">
+   <children>
+      <Label layoutX="28.0" layoutY="25.0" prefHeight="59.0" prefWidth="100.0" text="Tittle:">
+         <font>
+            <Font size="39.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtFieldTittle" layoutX="130.0" layoutY="35.0" prefHeight="39.0" prefWidth="455.0" />
+      <Label layoutX="9.0" layoutY="73.0" prefHeight="59.0" prefWidth="121.0" text="Category:">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <Label layoutX="9.0" layoutY="132.0" prefHeight="59.0" prefWidth="121.0" text="IMDB Link:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtFieldIMDBLink" layoutX="129.0" layoutY="142.0" prefHeight="39.0" prefWidth="455.0" />
+      <Label layoutX="9.0" layoutY="183.0" prefHeight="59.0" prefWidth="121.0" text="Persanl score:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtInterpersonalScore" layoutX="129.0" layoutY="193.0" prefHeight="39.0" prefWidth="455.0" />
+      <Label layoutX="53.0" layoutY="232.0" prefHeight="59.0" prefWidth="72.0" text="File:">
+         <font>
+            <Font size="39.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnSelectFile" layoutX="132.0" layoutY="242.0" mnemonicParsing="false" onAction="#selectFile" prefHeight="39.0" prefWidth="90.0" text="Sellect FIle" />
+      <TextField fx:id="txtFieldPath" editable="false" layoutX="130.0" layoutY="291.0" prefHeight="39.0" prefWidth="455.0" />
+      <Button fx:id="btnConfirm" layoutX="525.0" layoutY="352.0" mnemonicParsing="false" onAction="#ConfirmAddMovie" text="Confirm" />
+      <Button fx:id="btnCancel" layoutX="467.0" layoutY="352.0" mnemonicParsing="false" onAction="#cancelAddSong" text="Cancel" />
+      <ComboBox fx:id="comboBoxCategory" layoutX="132.0" layoutY="89.0" prefHeight="39.0" prefWidth="90.0" promptText="Cat" />
+      <Button fx:id="btnAddCombobox" layoutX="234.0" layoutY="89.0" mnemonicParsing="false" onAction="#addComboBox" prefHeight="39.0" prefWidth="46.0" text="+" />
+      <TextField fx:id="txtFieldCCat" editable="false" layoutX="293.0" layoutY="89.0" prefHeight="39.0" prefWidth="290.0" />
+   </children>
+</AnchorPane>

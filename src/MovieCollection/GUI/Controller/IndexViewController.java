@@ -1,12 +1,17 @@
 package MovieCollection.GUI.Controller;
 
+import MovieCollection.GUI.Model.IndexDataModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeTableColumn;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,10 +27,10 @@ public class IndexViewController implements Initializable {
     @FXML private Button btnAddCategory;
     @FXML private Button btnDeleteCategory;
     @FXML private Button btnDeleteMovie;
-
+    private IndexDataModel indexDataModel;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+        indexDataModel = new IndexDataModel();
     }
 
     private void displayError(Throwable t)
@@ -39,6 +44,9 @@ public class IndexViewController implements Initializable {
     public void addMovie(ActionEvent actionEvent) {
         try {
             System.out.println("Add Movie");
+
+            indexDataModel.openAddMovieWindow();
+
         } catch (Exception e) {
             displayError(e);
         }
