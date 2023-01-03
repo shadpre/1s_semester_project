@@ -55,6 +55,8 @@ public class IndexViewController implements Initializable {
     public void addCategory(ActionEvent actionEvent) {
         try {
             System.out.println("Add Category");
+
+            indexDataModel.openAddCategoryWindow();
         } catch (Exception e) {
             displayError(e);
         }

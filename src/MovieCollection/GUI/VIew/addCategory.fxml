@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="104.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MovieCollection.GUI.Controller.AddCategoryController">
+   <children>
+      <Label layoutX="34.0" layoutY="22.0" text="Add Category">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtFieldCategoryName" layoutX="190.0" layoutY="24.0" prefHeight="14.0" prefWidth="325.0" promptText="Category Name" />
+      <Button fx:id="btnConfirm" layoutX="456.0" layoutY="68.0" mnemonicParsing="false" onAction="#ConfirmAddMovie" text="Confirm" />
+      <Button fx:id="btnCancel" layoutX="398.0" layoutY="68.0" mnemonicParsing="false" onAction="#cancelAddSong" text="Cancel" />
+   </children>
+</AnchorPane>
