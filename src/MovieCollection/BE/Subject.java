@@ -4,10 +4,6 @@ public class Subject {
     String subjectName;
     int iD;
 
-    public Subject(String subjectName) {
-        this.subjectName = subjectName;
-    }
-
     public Subject(String subjectName, int iD) {
         this.subjectName = subjectName;
         this.iD = iD;

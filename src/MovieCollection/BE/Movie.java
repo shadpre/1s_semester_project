@@ -10,14 +10,6 @@ public class Movie {
     String localFilePath;
     int iD;
 
-    public Movie(String movieTittle, ArrayList<Category> categories, float imdbRating, float personalRating, String localFilePath) {
-        MovieTittle = movieTittle;
-        Categories = categories;
-        this.imdbRating = imdbRating;
-        this.personalRating = personalRating;
-        this.localFilePath = localFilePath;
-    }
-
     public Movie(String movieTittle, ArrayList<Category> categories, float imdbRating, float personalRating, String localFilePath, int iD) {
         MovieTittle = movieTittle;
         Categories = categories;
