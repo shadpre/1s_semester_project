@@ -1,5 +1,7 @@
 package MovieCollection.GUI.Controller;
 
+import MovieCollection.BE.Category;
+import MovieCollection.BLL.Util.TupleCategory;
 import MovieCollection.GUI.Model.IndexDataModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -19,10 +21,12 @@ public class AddCategoryController implements Initializable {
     @FXML private Button btnConfirm;
     @FXML private Button btnCancel;
     private IndexDataModel indexDataModel;
+    private TupleCategory tbCategory;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         indexDataModel = new IndexDataModel();
+        tbCategory = new TupleCategory();
     }
 
     private void displayError(Throwable t)
@@ -34,6 +38,13 @@ public class AddCategoryController implements Initializable {
     }
 
     public void ConfirmAddMovie(ActionEvent actionEvent) {
+        String catName = txtFieldCategoryName.getText();
+        Category category = new Category(catName, -1);
+
+        tbCategory.setCategory(category);
+
+        Stage stage = (Stage) btnCancel.getScene().getWindow();
+        stage.close();
     }
 
     public void cancelAddSong(ActionEvent actionEvent) {

@@ -4,7 +4,7 @@ import MovieCollection.BE.Category;
 
 public class TupleCategory {
 
-    private Category category;
+    private static Category category;
 
     public TupleCategory() {
     }

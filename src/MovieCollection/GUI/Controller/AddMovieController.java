@@ -1,9 +1,13 @@
 package MovieCollection.GUI.Controller;
 
+import MovieCollection.BE.Category;
 import MovieCollection.BE.Movie;
+import MovieCollection.BLL.Util.TupleCategory;
+import MovieCollection.BLL.Util.TupleMovie;
 import MovieCollection.GUI.Model.IndexDataModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -12,9 +16,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class AddMovieController extends Application {
+public class AddMovieController implements Initializable {
     public TextField txtFieldTittle;
     public TextField txtFieldIMDBLink;
     public TextField txtInterpersonalScore;
@@ -27,12 +33,16 @@ public class AddMovieController extends Application {
     public TextField txtFieldCCat;
 
     private IndexDataModel indexDataModel;
-    private ArrayList <String> categories;
+    private ArrayList <Category> categories;
+    private TupleMovie tbMovie;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        indexDataModel = new IndexDataModel();
+    public void initialize(URL location, ResourceBundle resources){
         categories = new ArrayList<>();
+        tbMovie = new TupleMovie();
+
+        indexDataModel = new IndexDataModel();
+        categories.add(new Category("sdfds" ,-1));
     }
 
     private void displayError(Throwable t)
@@ -62,6 +72,25 @@ public class AddMovieController extends Application {
     }
 
     public void ConfirmAddMovie(ActionEvent actionEvent) {
+        try {
+            String name = txtFieldTittle.getText();
+            float imdb = getImdb(txtFieldIMDBLink.getText());
+            float personal = Float.parseFloat(txtInterpersonalScore.getText());
+            String path = txtFieldPath.getText();
+
+            Movie movie = new Movie(name, categories, imdb, personal, path, -1);
+
+            tbMovie.setTbMovie(movie);
+
+            Stage stage = (Stage) btnCancel.getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            displayError(e);
+        }
+    }
+
+    private float getImdb(String link) {
+        return 0.0f;
     }
 
     public void cancelAddSong(ActionEvent actionEvent) {
@@ -73,7 +102,7 @@ public class AddMovieController extends Application {
         try {
             if (comboBoxCategory.getValue() == null || comboBoxCategory.getValue().equals("")) return;
 
-            String value = (String) comboBoxCategory.getValue();
+            Category value = (Category) comboBoxCategory.getValue();
 
             if (categories.contains(value)) return;
 

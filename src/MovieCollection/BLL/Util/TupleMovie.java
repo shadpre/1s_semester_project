@@ -3,7 +3,7 @@ package MovieCollection.BLL.Util;
 import MovieCollection.BE.Movie;
 
 public class TupleMovie {
-    private Movie tbMovie;
+    private static Movie tbMovie;
 
     public TupleMovie() {
     }
