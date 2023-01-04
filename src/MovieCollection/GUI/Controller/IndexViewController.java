@@ -31,6 +31,8 @@ public class IndexViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         indexDataModel = new IndexDataModel();
+        listViewSubject.setItems(indexDataModel.getSubjectObservableList());
+        listViewCategory.setItems(indexDataModel.getCategoryObservableList());
     }
 
     private void displayError(Throwable t)
@@ -57,6 +59,8 @@ public class IndexViewController implements Initializable {
             System.out.println("Add Category");
 
             indexDataModel.openAddCategoryWindow();
+
+            listViewCategory.refresh();
         } catch (Exception e) {
             displayError(e);
         }
