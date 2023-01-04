@@ -6,7 +6,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 #config file
-/src/MovieCollection/BLL/configDB.properties
+/src/MovieCollection/BLL/config.proberties
 
 # User-specific stuff
 .idea/**/workspace.xml
