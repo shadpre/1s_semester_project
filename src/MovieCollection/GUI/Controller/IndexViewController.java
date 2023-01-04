@@ -31,6 +31,7 @@ public class IndexViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         indexDataModel = new IndexDataModel();
+        start();
         listViewSubject.setItems(indexDataModel.getSubjectObservableList());
         listViewCategory.setItems(indexDataModel.getCategoryObservableList());
     }
@@ -41,6 +42,14 @@ public class IndexViewController implements Initializable {
         alert.setTitle("!!ERROR!!");
         alert.setHeaderText("Something went wrong, \n ERROR:      " + t.getMessage());
         alert.showAndWait();
+    }
+
+    private void start() {
+        try {
+            indexDataModel.startPopUp();
+        } catch (Exception e) {
+            displayError(e);
+        }
     }
 
     public void addMovie(ActionEvent actionEvent) {

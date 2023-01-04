@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
-<AnchorPane prefHeight="413.0" prefWidth="393.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MovieCollection.GUI.VIew.PopUpDellete">
+<AnchorPane prefHeight="413.0" prefWidth="393.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MovieCollection.GUI.Controller.PopUpDeleteController">
    <children>
       <GridPane alignment="CENTER_RIGHT" layoutX="14.0" layoutY="14.0" prefHeight="350.0" prefWidth="361.0">
         <columnConstraints>
@@ -26,6 +26,6 @@
             <ListView fx:id="listViewDelete" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button fx:id="btnConfirm" layoutX="317.0" layoutY="373.0" mnemonicParsing="false" onAction="#CloseWindow" text="Confirm" />
+      <Button fx:id="btnConfirm" layoutX="317.0" layoutY="373.0" mnemonicParsing="false" onAction="#closeWindow" text="Confirm" />
    </children>
 </AnchorPane>
