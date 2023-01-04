@@ -42,7 +42,7 @@ public class AddMovieController implements Initializable {
         tbMovie = new TupleMovie();
 
         indexDataModel = new IndexDataModel();
-        categories.add(new Category("sdfds" ,-1));
+        categories.add(new Category("sdfds" ,-1)); //TODO This line is Purely for testing purpeses and should be deleted.
     }
 
     private void displayError(Throwable t)

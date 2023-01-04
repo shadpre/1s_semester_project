@@ -2,22 +2,30 @@ package MovieCollection.GUI.Model;
 
 import MovieCollection.BE.Category;
 import MovieCollection.BE.Movie;
+import MovieCollection.BE.Subject;
 import MovieCollection.BLL.Util.TupleCategory;
 import MovieCollection.BLL.Util.TupleMovie;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class IndexDataModel {
-    private ObservableList movieObservableList;
-    private ObservableList categoryObservableList;
-    private ObservableList subjectObservableList;
+    private ObservableList<Movie> movieObservableList;
+    private ObservableList<Category> categoryObservableList;
+    private ObservableList<Subject> subjectObservableList;
     private TupleMovie tbMovie;
     private TupleCategory tbCat;
 
     public IndexDataModel() {
+        movieObservableList = FXCollections.observableArrayList();
+        categoryObservableList = FXCollections.observableArrayList();
+        subjectObservableList = FXCollections.observableArrayList();
+
         tbMovie = new TupleMovie();
         tbCat = new TupleCategory();
     }
@@ -65,6 +73,14 @@ public class IndexDataModel {
         //TODO INSERT DATA INTO DAO
 
         tbCat.setCategory(null);
+    }
+
+    public void startPopUp() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/MovieCollection/GUI/View/PopUpDelete.fxml"));
+        Parent root3 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root3));
+        stage.showAndWait();
     }
 
     public void deleteCategory(Category selectedCategory) throws Exception {
