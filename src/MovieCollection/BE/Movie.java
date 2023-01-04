@@ -6,15 +6,25 @@ public class Movie {
     String MovieTittle;
     ArrayList<Category> Categories;
     float imdbRating;
-    int personalRating;
+    float personalRating;
     String localFilePath;
+    int iD;
 
-    public Movie(String movieTittle, ArrayList<Category> categories, float imdbRating, int personalRating, String localFilePath) {
+    public Movie(String movieTittle, ArrayList<Category> categories, float imdbRating, float personalRating, String localFilePath) {
         MovieTittle = movieTittle;
         Categories = categories;
         this.imdbRating = imdbRating;
         this.personalRating = personalRating;
         this.localFilePath = localFilePath;
+    }
+
+    public Movie(String movieTittle, ArrayList<Category> categories, float imdbRating, float personalRating, String localFilePath, int iD) {
+        MovieTittle = movieTittle;
+        Categories = categories;
+        this.imdbRating = imdbRating;
+        this.personalRating = personalRating;
+        this.localFilePath = localFilePath;
+        this.iD = iD;
     }
 
     public String getMovieTittle() {
@@ -41,11 +51,11 @@ public class Movie {
         this.imdbRating = imdbRating;
     }
 
-    public int getPersonalRating() {
+    public float getPersonalRating() {
         return personalRating;
     }
 
-    public void setPersonalRating(int personalRating) {
+    public void setPersonalRating(float personalRating) {
         this.personalRating = personalRating;
     }
 
@@ -55,5 +65,9 @@ public class Movie {
 
     public void setLocalFilePath(String localFilePath) {
         this.localFilePath = localFilePath;
+    }
+
+    public int getiD() {
+        return iD;
     }
 }
