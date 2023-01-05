@@ -41,7 +41,11 @@ public class AddMovieController implements Initializable {
         categories = new ArrayList<>();
         tbMovie = new TupleMovie();
 
-        indexDataModel = new IndexDataModel();
+        try {
+            indexDataModel = new IndexDataModel();
+        } catch (Exception e) {
+            displayError(e);
+        }
         categories.add(new Category("sdfds" ,-1)); //TODO This line is Purely for testing purpeses and should be deleted.
     }
 

@@ -25,7 +25,11 @@ public class AddCategoryController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        indexDataModel = new IndexDataModel();
+        try {
+            indexDataModel = new IndexDataModel();
+        } catch (Exception e) {
+            displayError(e);
+        }
         tbCategory = new TupleCategory();
     }
 

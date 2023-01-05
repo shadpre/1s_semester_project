@@ -37,10 +37,11 @@ public class CategoryDAO implements ICategoryDAO{
 
     @Override
     public ArrayList<Category> getAllCategories() throws Exception {
-
+        ArrayList<Category> allCategories = new ArrayList<>();
         //TODO create create all categories
 
-        return null;
+        allCategories.add(new Category("Drama", -1)); //MOCK DATA
+        return allCategories;
     }
 
     @Override

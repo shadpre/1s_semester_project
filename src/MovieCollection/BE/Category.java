@@ -20,4 +20,9 @@ public class Category {
     public int getID() {
         return iD;
     }
+
+    @Override
+    public String toString() {
+        return  catName ;
+    }
 }

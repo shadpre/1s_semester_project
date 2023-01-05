@@ -21,7 +21,7 @@ public class SubjectDAO implements ISubjectDAO{
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()) {
-                String name = rs.getString("Title");
+                String name = rs.getString("Name");
                 int iD = rs.getInt("Id");
 
                 Subject subject = new Subject(name,iD);
