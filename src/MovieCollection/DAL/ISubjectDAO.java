@@ -1,4 +1,4 @@
 package MovieCollection.DAL;
 
-public interface ISubject {
+public interface ISubjectDAO {
 }

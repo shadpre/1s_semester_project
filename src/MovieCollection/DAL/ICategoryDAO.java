@@ -1,4 +1,4 @@
 package MovieCollection.DAL;
 
-public interface ICategory {
+public interface ICategoryDAO {
 }
