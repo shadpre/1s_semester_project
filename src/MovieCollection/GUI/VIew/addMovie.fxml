@@ -44,5 +44,6 @@
       <ComboBox fx:id="comboBoxCategory" layoutX="132.0" layoutY="89.0" prefHeight="39.0" prefWidth="90.0" promptText="Cat" />
       <Button fx:id="btnAddCombobox" layoutX="234.0" layoutY="89.0" mnemonicParsing="false" onAction="#addComboBox" prefHeight="39.0" prefWidth="46.0" text="+" />
       <TextField fx:id="txtFieldCCat" editable="false" layoutX="293.0" layoutY="89.0" prefHeight="39.0" prefWidth="290.0" />
+      <Label fx:id="lblDisplayMissingElement" layoutX="28.0" layoutY="341.0" prefHeight="39.0" prefWidth="427.0" textFill="RED" />
    </children>
 </AnchorPane>

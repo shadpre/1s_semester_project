@@ -8,10 +8,7 @@ import MovieCollection.GUI.Model.IndexDataModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -31,6 +28,7 @@ public class AddMovieController implements Initializable {
     public ComboBox comboBoxCategory;
     public Button btnAddCombobox;
     public TextField txtFieldCCat;
+    public Label lblDisplayMissingElement;
 
     private IndexDataModel indexDataModel;
     private ArrayList <Category> categories;
@@ -82,6 +80,7 @@ public class AddMovieController implements Initializable {
             float personal = Float.parseFloat(txtInterpersonalScore.getText());
             String path = txtFieldPath.getText();
 
+            if (!checkData(name,categories,imdb,personal,path)) return; //if check returns false, code end here
             Movie movie = new Movie(name, categories, imdb, personal, path, -1);
 
             tbMovie.setTbMovie(movie);
@@ -91,6 +90,31 @@ public class AddMovieController implements Initializable {
         } catch (Exception e) {
             displayError(e);
         }
+    }
+
+    private boolean checkData(String name, ArrayList<Category> cat, float imdb, float personal, String path){
+        if (name == null || name.isEmpty()){
+            lblDisplayMissingElement.setText("Missing a name.");
+            return false;
+        }
+        if (cat.isEmpty()) {
+            lblDisplayMissingElement.setText("Missing one or more categories.");
+            return false;
+        }
+        if (imdb < 0.0 || imdb > 10.00) {
+            lblDisplayMissingElement.setText("The IMDB Rating encountered an error");
+            return false;
+        }
+        if (personal < 0.0 || personal > 10.00) {
+            lblDisplayMissingElement.setText("The rating is not between 0 and 10.");
+            return false;
+        }
+        if (path == null || path.isEmpty()) {
+            lblDisplayMissingElement.setText("You need to select a file.");
+            return false;
+        }
+
+        return true;
     }
 
     private float getImdb(String link) {
@@ -118,3 +142,5 @@ public class AddMovieController implements Initializable {
     }
 
 }
+
+
