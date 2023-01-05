@@ -8,5 +8,5 @@ public interface IMovieDAO {
    ArrayList<Movie> getAllMovies() throws Exception;
    void deleteMovie(int iD) throws Exception;
    void createMovie(Movie movie) throws Exception;
-   Movie updateMovie(Movie movie) throws Exception;
+   void updateMovie(Movie movie) throws Exception;
 }
