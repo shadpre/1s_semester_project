@@ -30,7 +30,11 @@ public class IndexViewController implements Initializable {
     private IndexDataModel indexDataModel;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        indexDataModel = new IndexDataModel();
+        try {
+            indexDataModel = new IndexDataModel();
+        } catch (Exception e) {
+            displayError(e);
+        }
         start();
         listViewSubject.setItems(indexDataModel.getSubjectObservableList());
         listViewCategory.setItems(indexDataModel.getCategoryObservableList());

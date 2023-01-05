@@ -3,6 +3,7 @@ package MovieCollection.GUI.Model;
 import MovieCollection.BE.Category;
 import MovieCollection.BE.Movie;
 import MovieCollection.BE.Subject;
+import MovieCollection.BLL.Manager;
 import MovieCollection.BLL.Util.TupleCategory;
 import MovieCollection.BLL.Util.TupleMovie;
 import javafx.collections.FXCollections;
@@ -20,14 +21,20 @@ public class IndexDataModel {
     private ObservableList<Subject> subjectObservableList;
     private TupleMovie tbMovie;
     private TupleCategory tbCat;
+    private Manager manager;
 
-    public IndexDataModel() {
+    public IndexDataModel() throws Exception{
         movieObservableList = FXCollections.observableArrayList();
         categoryObservableList = FXCollections.observableArrayList();
         subjectObservableList = FXCollections.observableArrayList();
 
+        manager = new Manager();
+
         tbMovie = new TupleMovie();
         tbCat = new TupleCategory();
+
+        subjectObservableList.addAll(manager.getAllSubjects());
+        categoryObservableList.addAll(manager.getAllCategories());
     }
 
     public ObservableList getMovieObservableList() {

@@ -30,6 +30,7 @@ public class SubjectDAO implements ISubjectDAO{
 
             }
         }
+        allSubjects.add(new Subject("BLAH", -1));
         return allSubjects;
     }
 

@@ -20,4 +20,9 @@ public class Subject {
     public int getiD() {
         return iD;
     }
+
+    @Override
+    public String toString() {
+        return subjectName;
+    }
 }
