@@ -81,7 +81,7 @@ public class AddMovieController implements Initializable {
             String path = txtFieldPath.getText();
 
             if (!checkData(name,categories,imdb,personal,path)) return; //if check returns false, code end here
-            Movie movie = new Movie(name, categories, imdb, personal, path, -1);
+            Movie movie = new Movie(name, imdb, personal, path, -1);
 
             tbMovie.setTbMovie(movie);
 

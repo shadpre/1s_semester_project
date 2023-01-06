@@ -29,9 +29,9 @@
             <TreeTableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
               <columns>
                 <TreeTableColumn fx:id="treeIMDBRating" prefWidth="88.00006103515625" text="IMDB Ratting" />
-                <TreeTableColumn fx:id="TreeTittle" prefWidth="88.66661834716797" text="Tittle" />
-                  <TreeTableColumn fx:id="TreeTime" prefWidth="80.66670227050781" text="Time" />
-                  <TreeTableColumn fx:id="TreeOwnRatting" prefWidth="79.33336385091144" text="Own Ratting" />
+                <TreeTableColumn fx:id="treeTittle" prefWidth="88.66661834716797" text="Tittle" />
+                  <TreeTableColumn fx:id="treeTime" prefWidth="80.66670227050781" text="Time" />
+                  <TreeTableColumn fx:id="treeOwnRatting" prefWidth="79.33336385091144" text="Own Ratting" />
               </columns>
             </TreeTableView>
             <Label prefHeight="38.0" prefWidth="155.0" text="Subject">

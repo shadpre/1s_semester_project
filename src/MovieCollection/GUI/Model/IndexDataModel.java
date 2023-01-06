@@ -35,6 +35,7 @@ public class IndexDataModel {
 
         subjectObservableList.addAll(manager.getAllSubjects());
         categoryObservableList.addAll(manager.getAllCategories());
+        movieObservableList.addAll(manager.getAllMovies());
     }
 
     public ObservableList getMovieObservableList() {

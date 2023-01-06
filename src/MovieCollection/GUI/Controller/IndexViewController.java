@@ -20,9 +20,9 @@ public class IndexViewController implements Initializable {
     @FXML private ListView listViewSubject;
     @FXML private ListView listViewCategory;
     @FXML private TreeTableColumn treeIMDBRating;
-    @FXML private TreeTableColumn TreeTittle;
-    @FXML private TreeTableColumn TreeTime;
-    @FXML private TreeTableColumn TreeOwnRatting;
+    @FXML private TreeTableColumn treeTittle;
+    @FXML private TreeTableColumn treeTime;
+    @FXML private TreeTableColumn treeOwnRatting;
     @FXML private Button btnAddMovie;
     @FXML private Button btnAddCategory;
     @FXML private Button btnDeleteCategory;
@@ -38,6 +38,7 @@ public class IndexViewController implements Initializable {
         start();
         listViewSubject.setItems(indexDataModel.getSubjectObservableList());
         listViewCategory.setItems(indexDataModel.getCategoryObservableList());
+        //treeTittle.set
     }
 
     private void displayError(Throwable t)
