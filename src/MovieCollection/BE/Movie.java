@@ -72,4 +72,9 @@ public class Movie {
     public int getiD() {
         return iD;
     }
+
+    @Override
+    public String toString() {
+        return getMovieTittle();
+    }
 }

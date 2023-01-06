@@ -93,7 +93,7 @@ public class AddMovieController implements Initializable {
     }
 
     private boolean checkData(String name, ArrayList<Category> cat, float imdb, float personal, String path){
-        if (name == null || name.isEmpty()){
+        if (name == null || name.isEmpty() || name.trim().isEmpty()){
             lblDisplayMissingElement.setText("Missing a name.");
             return false;
         }

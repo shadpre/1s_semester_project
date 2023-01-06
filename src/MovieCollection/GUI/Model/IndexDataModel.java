@@ -23,6 +23,7 @@ public class IndexDataModel {
     private TupleCategory tbCat;
     private Manager manager;
 
+
     public IndexDataModel() throws Exception{
         movieObservableList = FXCollections.observableArrayList();
         categoryObservableList = FXCollections.observableArrayList();
@@ -48,6 +49,21 @@ public class IndexDataModel {
     public ObservableList getSubjectObservableList() {
         return subjectObservableList;
     }
+
+    public String getTittleForMovie(Movie movie){
+        return movie.getMovieTittle();
+    }
+    public String getIMDBRatingForMovie(Movie movie) {
+        return String.valueOf(movie.getImdbRating());
+    }
+    public String getLastViewed(Movie movie) {
+        return String.valueOf(movie.getLastPlayDate());
+    }
+
+    public String getPersonalRating(Movie movie) {
+        return String.valueOf(movie.getPersonalRating());
+    }
+
 
     public void openAddMovieWindow() throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/MovieCollection/GUI/View/addMovie.fxml"));

@@ -3,15 +3,14 @@ package MovieCollection.GUI.Controller;
 import MovieCollection.BE.Category;
 import MovieCollection.BE.Movie;
 import MovieCollection.GUI.Model.IndexDataModel;
-import javafx.collections.ObservableList;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.control.skin.TableHeaderRow;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,15 +18,17 @@ import java.util.ResourceBundle;
 public class IndexViewController implements Initializable {
     @FXML private ListView listViewSubject;
     @FXML private ListView listViewCategory;
-    @FXML private TreeTableColumn treeIMDBRating;
-    @FXML private TreeTableColumn treeTittle;
-    @FXML private TreeTableColumn treeTime;
-    @FXML private TreeTableColumn treeOwnRatting;
+    @FXML private TableView<Movie> tableViewMovies;
+    @FXML private TableColumn tableIMDBRating;
+    @FXML private TableColumn tableTittle;
+    @FXML private TableColumn tableTime;
+    @FXML private TableColumn tableOwnRatting;
     @FXML private Button btnAddMovie;
     @FXML private Button btnAddCategory;
     @FXML private Button btnDeleteCategory;
     @FXML private Button btnDeleteMovie;
     private IndexDataModel indexDataModel;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -35,10 +36,10 @@ public class IndexViewController implements Initializable {
         } catch (Exception e) {
             displayError(e);
         }
-        start();
+        //tart();
         listViewSubject.setItems(indexDataModel.getSubjectObservableList());
         listViewCategory.setItems(indexDataModel.getCategoryObservableList());
-        //treeTittle.set
+        initTreeMovies();
     }
 
     private void displayError(Throwable t)
@@ -55,6 +56,28 @@ public class IndexViewController implements Initializable {
         } catch (Exception e) {
             displayError(e);
         }
+    }
+
+    private void initTreeMovies(){
+        tableViewMovies.widthProperty().addListener((source, oldWidth, newWidth) -> {
+            TableHeaderRow header = (TableHeaderRow) tableViewMovies.lookup("TableHeaderRow");
+            header.reorderingProperty().addListener((observable, oldValue, newValue) -> header.setReordering(false));
+        });
+
+        tableViewMovies.setItems(indexDataModel.getMovieObservableList());
+
+        tableIMDBRating.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Movie, String>, ObservableValue<String>>)
+                param -> new SimpleStringProperty(indexDataModel.getIMDBRatingForMovie(param.getValue())
+                ));
+        tableTittle.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Movie, String>, ObservableValue<String>>)
+                param -> new SimpleStringProperty(indexDataModel.getTittleForMovie(param.getValue())
+                ));
+        tableTime.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Movie, String>, ObservableValue<String>>)
+                param -> new SimpleStringProperty(indexDataModel.getLastViewed(param.getValue())
+                ));
+        tableOwnRatting.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Movie, String>, ObservableValue<String>>)
+                param -> new SimpleStringProperty(indexDataModel.getPersonalRating(param.getValue())
+                ));
     }
 
     public void addMovie(ActionEvent actionEvent) {

@@ -29,6 +29,11 @@ public class Manager {
     }
 
     public ArrayList<Movie> getAllMovies() throws Exception {
-        return movieDAO.getAllMovies();
+        //return movieDAO.getAllMovies();
+        ArrayList<Movie> arr = new ArrayList<>();
+        arr.add(new Movie("Scream", 4, 8, "PATH",-1));
+        arr.add(new Movie("dam", 7, 2, "PATH", -1));
+
+        return arr;
     }
 }
