@@ -20,8 +20,6 @@ public class CategoryDAO implements ICategoryDAO{
 
             var resultSet = statement.getGeneratedKeys();
             return resultSet.getInt(1);
-
-
         }
         catch (Exception ex){
             throw ex;

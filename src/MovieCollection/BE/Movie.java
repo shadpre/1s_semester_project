@@ -1,5 +1,7 @@
 package MovieCollection.BE;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Movie {
@@ -9,6 +11,15 @@ public class Movie {
     float personalRating;
     String localFilePath;
     int iD;
+    LocalDateTime lastPlayDate;
+
+    public LocalDateTime getLastPlayDate() {
+        return lastPlayDate;
+    }
+
+    public void setLastPlayDate(LocalDateTime lastPlayDate) {
+        this.lastPlayDate = lastPlayDate;
+    }
 
     public Movie(String movieTittle, ArrayList<Category> categories, float imdbRating, float personalRating, String localFilePath, int iD) {
         MovieTittle = movieTittle;
