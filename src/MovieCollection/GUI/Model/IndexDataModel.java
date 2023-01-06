@@ -19,6 +19,7 @@ public class IndexDataModel {
     private ObservableList<Movie> movieObservableList;
     private ObservableList<Category> categoryObservableList;
     private ObservableList<Subject> subjectObservableList;
+    private ObservableList<Movie> movieObservableListByCategory;
     private TupleMovie tbMovie;
     private TupleCategory tbCat;
     private Manager manager;
@@ -28,6 +29,7 @@ public class IndexDataModel {
         movieObservableList = FXCollections.observableArrayList();
         categoryObservableList = FXCollections.observableArrayList();
         subjectObservableList = FXCollections.observableArrayList();
+        movieObservableListByCategory = FXCollections.observableArrayList();
 
         manager = new Manager();
 
@@ -64,6 +66,14 @@ public class IndexDataModel {
         return String.valueOf(movie.getPersonalRating());
     }
 
+    public ObservableList getMoviesFromCategory(int cateforyId) {
+        movieObservableListByCategory.clear();
+
+        for (Movie movie: movieObservableList) { //TODO Make it add movies by the category Id
+            movieObservableListByCategory.add(movie);
+        }
+        return movieObservableListByCategory;
+    }
 
     public void openAddMovieWindow() throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/MovieCollection/GUI/View/addMovie.fxml"));

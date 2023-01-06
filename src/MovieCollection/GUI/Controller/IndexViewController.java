@@ -36,9 +36,9 @@ public class IndexViewController implements Initializable {
         } catch (Exception e) {
             displayError(e);
         }
-        //tart();
-        listViewSubject.setItems(indexDataModel.getSubjectObservableList());
-        listViewCategory.setItems(indexDataModel.getCategoryObservableList());
+        //start();
+        initSubject();
+        initCategories();
         initTreeMovies();
     }
 
@@ -57,14 +57,33 @@ public class IndexViewController implements Initializable {
             displayError(e);
         }
     }
+    private void initCategories(){
+
+        listViewCategory.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                var categoryId = listViewCategory.getSelectionModel().getSelectedIndex();
+
+                tableViewMovies.setItems(indexDataModel.getMoviesFromCategory(categoryId));
+            }
+        });
+    }
+    private void initSubject(){
+        listViewSubject.setItems(indexDataModel.getSubjectObservableList());
+
+        listViewSubject.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                var subjectId = listViewSubject.getSelectionModel().getSelectedIndex();
+
+                listViewCategory.setItems(indexDataModel.getCategoryObservableList());
+            }
+        });
+    }
 
     private void initTreeMovies(){
         tableViewMovies.widthProperty().addListener((source, oldWidth, newWidth) -> {
             TableHeaderRow header = (TableHeaderRow) tableViewMovies.lookup("TableHeaderRow");
             header.reorderingProperty().addListener((observable, oldValue, newValue) -> header.setReordering(false));
         });
-
-        tableViewMovies.setItems(indexDataModel.getMovieObservableList());
 
         tableIMDBRating.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Movie, String>, ObservableValue<String>>)
                 param -> new SimpleStringProperty(indexDataModel.getIMDBRatingForMovie(param.getValue())

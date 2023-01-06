@@ -39,6 +39,8 @@ public class CategoryDAO implements ICategoryDAO{
         //TODO create create all categories
 
         allCategories.add(new Category("Drama", -1)); //MOCK DATA
+        allCategories.add(new Category("Fiction", -2)); //MOCK DATA
+
         return allCategories;
     }
 
