@@ -109,7 +109,13 @@ public class IndexDataModel {
     }
 
     public void deleteCategory(Category selectedCategory) throws Exception {
+
         if (selectedCategory == null || !categoryObservableList.contains(selectedCategory))  throw new Exception("Item Does Not Exist");
+
+        manager.removeCatefory(selectedCategory);
+
+        categoryObservableList.clear();
+        categoryObservableList.addAll(manager.getAllCategories());
 
         //TODO DELETE CATEGORY
 
@@ -118,6 +124,10 @@ public class IndexDataModel {
     public void deleteMovie(Movie selectedMovie) throws Exception {
         if (selectedMovie == null || !movieObservableList.contains(selectedMovie))  throw new Exception("Item Does Not Exist");
 
+        manager.removeMovie(selectedMovie);
+
+        movieObservableList.clear();
+        movieObservableList.addAll(manager.getAllMovies());
         //TODO DELETE MOVIE
 
     }

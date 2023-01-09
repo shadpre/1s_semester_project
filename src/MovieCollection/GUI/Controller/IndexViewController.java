@@ -127,6 +127,7 @@ public class IndexViewController implements Initializable {
                 }
             });
 
+            listViewCategory.refresh();
         } catch (Exception e) {
             displayError(e);
         }
@@ -149,6 +150,8 @@ public class IndexViewController implements Initializable {
                     throw new RuntimeException(e);
                 }
             });
+
+            tableViewMovies.refresh();
 
         } catch (Exception e) {
             displayError(e);

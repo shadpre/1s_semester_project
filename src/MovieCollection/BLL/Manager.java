@@ -42,4 +42,12 @@ public class Manager {
         //TODO INSERT DATA INTO DAO Needs to add new ID to Category before return
         return category;
     }
+
+    public void removeCatefory(Category category) throws  Exception {
+        //TODO delete Category from DAO
+    }
+
+    public void removeMovie(Movie movie) throws Exception{
+        //TODO delete movie from DAO
+    }
 }
