@@ -15,23 +15,17 @@
    <children>
       <GridPane layoutX="14.0" layoutY="14.0" prefHeight="377.0" prefWidth="689.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.33331298828125" minWidth="10.0" prefWidth="161.6666463216146" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.0000305175781" minWidth="10.0" prefWidth="188.66670735677087" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.9999694824219" minWidth="10.0" prefWidth="339.33329264322913" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.99998474121094" minWidth="10.0" prefWidth="243.99998474121094" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.0000305175781" minWidth="10.0" prefWidth="43.20001525878905" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="403.199951171875" minWidth="10.0" prefWidth="403.199951171875" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="183.0" minHeight="10.0" prefHeight="36.33334732055664" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="343.66665267944336" minHeight="10.0" prefHeight="341.66665267944336" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView fx:id="listViewSubject" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-            <ListView fx:id="listViewCategory" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label prefHeight="38.0" prefWidth="155.0" text="Subject">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Label>
-            <Label prefHeight="38.0" prefWidth="155.0" text="Category" GridPane.columnIndex="1">
+            <ListView fx:id="listViewCategory" prefHeight="342.0" prefWidth="244.0" GridPane.rowIndex="1" />
+            <Label prefHeight="38.0" prefWidth="155.0" text="Category">
                <font>
                   <Font size="26.0" />
                </font>
@@ -41,12 +35,12 @@
                   <Font size="26.0" />
                </font>
             </Label>
-            <TableView fx:id="tableViewMovies" prefHeight="342.0" prefWidth="340.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <TableView fx:id="tableViewMovies" prefHeight="342.0" prefWidth="304.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
               <columns>
                 <TableColumn fx:id="tableIMDBRating" prefWidth="104.0" text="IMDB Ratting" />
-                <TableColumn fx:id="tableTittle" prefWidth="64.79995727539062" text="Tittle" />
-                  <TableColumn fx:id="tableTime" prefWidth="80.79998779296875" text="Last Viewed" />
-                  <TableColumn fx:id="tableOwnRatting" prefWidth="92.80003356933594" text="Own Ratting" />
+                <TableColumn fx:id="tableTittle" prefWidth="127.199951171875" text="Tittle" />
+                  <TableColumn fx:id="tableTime" prefWidth="80.00010681152344" text="Last Viewed" />
+                  <TableColumn fx:id="tableOwnRatting" prefWidth="91.9998779296875" text="Own Ratting" />
               </columns>
             </TableView>
          </children>

@@ -20,10 +20,6 @@ public class Manager {
         movieDAO = new MovieDAO();
     }
 
-    public ArrayList<Subject> getAllSubjects() throws Exception{
-        return subjectDAO.getAllSubjects();
-    }
-
     public ArrayList<Category> getAllCategories() throws Exception {
         return categoryDAO.getAllCategories();
     }

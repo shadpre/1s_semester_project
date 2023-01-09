@@ -18,7 +18,7 @@ import java.io.IOException;
 public class IndexDataModel {
     private ObservableList<Movie> movieObservableList;
     private ObservableList<Category> categoryObservableList;
-    private ObservableList<Subject> subjectObservableList;
+
     private ObservableList<Movie> movieObservableListByCategory;
     private TupleMovie tbMovie;
     private TupleCategory tbCat;
@@ -28,7 +28,6 @@ public class IndexDataModel {
     public IndexDataModel() throws Exception{
         movieObservableList = FXCollections.observableArrayList();
         categoryObservableList = FXCollections.observableArrayList();
-        subjectObservableList = FXCollections.observableArrayList();
         movieObservableListByCategory = FXCollections.observableArrayList();
 
         manager = new Manager();
@@ -36,7 +35,6 @@ public class IndexDataModel {
         tbMovie = new TupleMovie();
         tbCat = new TupleCategory();
 
-        subjectObservableList.addAll(manager.getAllSubjects());
         categoryObservableList.addAll(manager.getAllCategories());
         movieObservableList.addAll(manager.getAllMovies());
     }
@@ -46,10 +44,6 @@ public class IndexDataModel {
     }
     public ObservableList getCategoryObservableList() {
         return categoryObservableList;
-    }
-
-    public ObservableList getSubjectObservableList() {
-        return subjectObservableList;
     }
 
     public String getTittleForMovie(Movie movie){

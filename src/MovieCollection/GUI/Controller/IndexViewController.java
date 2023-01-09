@@ -16,7 +16,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class IndexViewController implements Initializable {
-    @FXML private ListView listViewSubject;
     @FXML private ListView listViewCategory;
     @FXML private TableView<Movie> tableViewMovies;
     @FXML private TableColumn tableIMDBRating;
@@ -36,8 +35,7 @@ public class IndexViewController implements Initializable {
         } catch (Exception e) {
             displayError(e);
         }
-        //start();
-        initSubject();
+        start();
         initCategories();
         initTreeMovies();
     }
@@ -58,6 +56,7 @@ public class IndexViewController implements Initializable {
         }
     }
     private void initCategories(){
+        listViewCategory.setItems(indexDataModel.getCategoryObservableList());
 
         listViewCategory.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
@@ -67,18 +66,6 @@ public class IndexViewController implements Initializable {
             }
         });
     }
-    private void initSubject(){
-        listViewSubject.setItems(indexDataModel.getSubjectObservableList());
-
-        listViewSubject.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) {
-                var subjectId = listViewSubject.getSelectionModel().getSelectedIndex();
-
-                listViewCategory.setItems(indexDataModel.getCategoryObservableList());
-            }
-        });
-    }
-
     private void initTreeMovies(){
         tableViewMovies.widthProperty().addListener((source, oldWidth, newWidth) -> {
             TableHeaderRow header = (TableHeaderRow) tableViewMovies.lookup("TableHeaderRow");
