@@ -38,10 +38,11 @@ public class CategoryDAO implements ICategoryDAO{
             statement.executeQuery();
 
             var rs = statement.getResultSet();
+            if (rs.next()){
+            return new Category(rs.getString(1),id);}
 
-            return new Category(rs.getString(1),id);
         }
-
+        return null;
     }
 
     @Override

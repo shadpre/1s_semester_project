@@ -5,7 +5,6 @@ import MovieCollection.BE.Movie;
 import MovieCollection.BE.Subject;
 import MovieCollection.DAL.CategoryDAO;
 import MovieCollection.DAL.MovieDAO;
-import MovieCollection.DAL.SubjectDAO;
 
 import java.util.ArrayList;
 
