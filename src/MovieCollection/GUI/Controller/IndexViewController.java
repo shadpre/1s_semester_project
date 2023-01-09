@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class IndexViewController implements Initializable {
+    @FXML private Button btnFilter;
     @FXML private TextField txtFieldSearcher;
     @FXML private ListView listViewCategory;
     @FXML private TableView<Movie> tableViewMovies;
@@ -166,5 +167,23 @@ public class IndexViewController implements Initializable {
         } catch (Exception e) {
             displayError(e);
         }
+    }
+
+    public void controlFilter(ActionEvent actionEvent) {
+        var categoryId = listViewCategory.getSelectionModel().getSelectedIndex();
+
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setGraphic(null);
+        dialog.setHeaderText(null);
+        dialog.setTitle("Add Minimum IMDB rating");
+        dialog.setContentText("rating:");
+        var result = dialog.showAndWait();
+        result.ifPresent(rating -> {
+            try {
+                indexDataModel.addMinimumImdbRating(rating, categoryId);
+            } catch (Exception e) {
+                displayError(e);
+            }
+        });
     }
 }

@@ -2,7 +2,6 @@ package MovieCollection.GUI.Model;
 
 import MovieCollection.BE.Category;
 import MovieCollection.BE.Movie;
-import MovieCollection.BE.Subject;
 import MovieCollection.BLL.Manager;
 import MovieCollection.BLL.Util.TupleCategory;
 import MovieCollection.BLL.Util.TupleMovie;
@@ -13,13 +12,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class IndexDataModel {
+    private float imdbRating;
+    private ObservableList<Movie> oldMovies;
     private ObservableList<Movie> movieObservableList;
     private ObservableList<Category> categoryObservableList;
-
     private ObservableList<Movie> movieObservableListByCategory;
     private TupleMovie tbMovie;
     private TupleCategory tbCat;
@@ -27,6 +27,7 @@ public class IndexDataModel {
 
 
     public IndexDataModel() throws Exception{
+        oldMovies = FXCollections.observableArrayList();
         movieObservableList = FXCollections.observableArrayList();
         categoryObservableList = FXCollections.observableArrayList();
         movieObservableListByCategory = FXCollections.observableArrayList();
@@ -45,6 +46,17 @@ public class IndexDataModel {
     }
     public ObservableList getCategoryObservableList() {
         return categoryObservableList;
+    }
+    public ObservableList getAllOldMovies(){
+        float minimumRating = 6;
+
+        for(Movie movie:movieObservableList){
+            if (movie.getPersonalRating() < minimumRating){
+                oldMovies.add(movie);
+            } //else if () {} //TODO check if movie have not been seen more than 2 years ago
+        }
+
+        return oldMovies;
     }
 
     public String getTittleForMovie(Movie movie){
@@ -101,7 +113,7 @@ public class IndexDataModel {
         tbCat.setCategory(null);
     }
 
-    public void startPopUp() throws IOException {
+    public void startPopUp() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/MovieCollection/GUI/View/PopUpDelete.fxml"));
         Parent root3 = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
@@ -139,5 +151,22 @@ public class IndexDataModel {
         movieObservableList.addAll(manager.getAllMovies());
         //TODO DELETE MOVIE
 
+    }
+
+    public void addMinimumImdbRating(String rating, int categoryId) throws Exception {
+        getMoviesFromCategory(categoryId);
+        imdbRating = Float.parseFloat(rating);
+        ArrayList<Movie> ratedList = new ArrayList<>();
+
+        for (Movie movie:movieObservableListByCategory) {
+            if (movie.getImdbRating() >= imdbRating){
+                ratedList.add(movie);
+            }
+        }
+
+        System.out.println(ratedList);
+
+        movieObservableListByCategory.clear();
+        movieObservableListByCategory.addAll(ratedList);
     }
 }

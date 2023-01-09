@@ -23,12 +23,15 @@ public class PopUpDeleteController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        moviesForDeletion = FXCollections.observableArrayList();
+
         try {
             indexDataModel = new IndexDataModel();
+            moviesForDeletion.addAll(indexDataModel.getAllOldMovies());
+            System.out.println(indexDataModel.getAllOldMovies());
         } catch (Exception e) {
             displayError(e);
         }
-        moviesForDeletion = FXCollections.observableArrayList();
         if (isThereData()) {
 
         }
