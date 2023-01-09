@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class IndexViewController implements Initializable {
+    @FXML private TextField txtFieldSearcher;
     @FXML private ListView listViewCategory;
     @FXML private TableView<Movie> tableViewMovies;
     @FXML private TableColumn tableIMDBRating;
@@ -35,9 +36,18 @@ public class IndexViewController implements Initializable {
         } catch (Exception e) {
             displayError(e);
         }
+
         start();
         initCategories();
         initTreeMovies();
+
+        txtFieldSearcher.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            try {
+                indexDataModel.searchForMovie(newValue);
+            } catch (Exception e){
+                displayError(e);
+            }
+        });
     }
 
     private void displayError(Throwable t)

@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class IndexDataModel {
     private ObservableList<Movie> movieObservableList;
@@ -106,6 +107,16 @@ public class IndexDataModel {
         Stage stage = new Stage();
         stage.setScene(new Scene(root3));
         stage.showAndWait();
+    }
+
+    public void searchForMovie(String query) throws Exception {
+        List<Movie> searchResults = manager.searchMovies(query);
+        movieObservableList.clear();
+        movieObservableListByCategory.clear();
+        movieObservableList.addAll(searchResults);
+        movieObservableListByCategory.addAll(searchResults);
+
+        System.out.println("Searching..." + movieObservableList);
     }
 
     public void deleteCategory(Category selectedCategory) throws Exception {

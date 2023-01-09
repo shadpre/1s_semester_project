@@ -3,19 +3,21 @@ package MovieCollection.BLL;
 import MovieCollection.BE.Category;
 import MovieCollection.BE.Movie;
 import MovieCollection.BE.Subject;
+import MovieCollection.BLL.Util.Searcher;
 import MovieCollection.DAL.CategoryDAO;
 import MovieCollection.DAL.MovieDAO;
 import MovieCollection.DAL.SubjectDAO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Manager {
-    private SubjectDAO subjectDAO;
+    private Searcher searcher;
     private CategoryDAO categoryDAO;
     private MovieDAO movieDAO;
 
     public Manager() {
-        subjectDAO = new SubjectDAO();
+        searcher = new Searcher();
         categoryDAO = new CategoryDAO();
         movieDAO = new MovieDAO();
     }
@@ -31,6 +33,12 @@ public class Manager {
         arr.add(new Movie("dam", 7, 2, "PATH", -1));
 
         return arr;
+    }
+
+    public List<Movie> searchMovies(String query) throws Exception{
+        List<Movie> allMovies = getAllMovies();
+        List<Movie> searchResult = searcher.search(allMovies, query);
+        return searchResult;
     }
 
     public Movie addNewMovie(Movie movie) throws Exception {
