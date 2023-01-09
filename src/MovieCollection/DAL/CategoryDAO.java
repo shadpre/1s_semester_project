@@ -29,18 +29,41 @@ public class CategoryDAO implements ICategoryDAO{
     @Override
     public Category getCategory(int id) throws Exception {
 
-        //TODO create get category
+
+        try (Connection connection = DatabaseConnector.getInstance().getConnection()){
+            String query = "SELECT Name FROM Category WHERE ID = ?";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,id);
+            statement.executeQuery();
+
+            var rs = statement.getResultSet();
+            if (rs.next()){
+            return new Category(rs.getString(1),id);}
+
+        }
         return null;
     }
 
     @Override
     public ArrayList<Category> getAllCategories() throws Exception {
         ArrayList<Category> allCategories = new ArrayList<>();
-        //TODO create create all categories
 
-        allCategories.add(new Category("Drama", -1)); //MOCK DATA
-        allCategories.add(new Category("Fiction", -2)); //MOCK DATA
+        try (Connection connection = DatabaseConnector.getInstance().getConnection()){
+            String query = "SELECT Id, Name FROM Category";
 
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.executeQuery();
+
+            var rs = statement.getResultSet();
+
+            while (rs.next()){
+                allCategories.add(new Category(
+                        rs.getString("Name"),
+                        rs.getInt("Id")
+                ));
+            }
+        }
         return allCategories;
     }
 
@@ -56,9 +79,17 @@ public class CategoryDAO implements ICategoryDAO{
     @Override
     public void deleteCategory(int id) throws Exception {
 
+        try (Connection connection = DatabaseConnector.getInstance().getConnection()){
+            String query = "DELETE Category WHERE ID = ?";
 
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,id);
+            int result = statement.executeUpdate();
 
-        //TODO create delete category
+            if (result == 0){
+                Exception ex = new Exception("Intet slettet");
+            }
+        }
 
     }
 }

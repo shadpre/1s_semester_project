@@ -6,7 +6,6 @@ import MovieCollection.BE.Subject;
 import MovieCollection.BLL.Util.Searcher;
 import MovieCollection.DAL.CategoryDAO;
 import MovieCollection.DAL.MovieDAO;
-import MovieCollection.DAL.SubjectDAO;
 
 import java.util.ArrayList;
 import java.util.List;
