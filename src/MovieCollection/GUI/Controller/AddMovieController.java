@@ -6,7 +6,10 @@ import MovieCollection.BLL.Util.TupleCategory;
 import MovieCollection.BLL.Util.TupleMovie;
 import MovieCollection.GUI.Model.IndexDataModel;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
@@ -18,20 +21,20 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AddMovieController implements Initializable {
-    public TextField txtFieldTittle;
-    public TextField txtFieldIMDBLink;
-    public TextField txtInterpersonalScore;
-    public Button btnSelectFile;
-    public TextField txtFieldPath;
-    public Button btnConfirm;
-    public Button btnCancel;
-    public ComboBox comboBoxCategory;
-    public Button btnAddCombobox;
-    public TextField txtFieldCCat;
-    public Label lblDisplayMissingElement;
+    @FXML  private TextField txtFieldTittle;
+    @FXML  private TextField txtFieldIMDBLink;
+    @FXML  private TextField txtInterpersonalScore;
+    @FXML  private Button btnSelectFile;
+    @FXML  private TextField txtFieldPath;
+    @FXML  private Button btnConfirm;
+    @FXML  private Button btnCancel;
+    @FXML  private ComboBox comboBoxCategory;
+    @FXML  private Button btnAddCombobox;
+    @FXML  private TextField txtFieldCCat;
+    @FXML  private Label lblDisplayMissingElement;
 
     private IndexDataModel indexDataModel;
-    private ArrayList <Category> categories;
+    private ArrayList<Category> categories;
     private TupleMovie tbMovie;
 
     @Override
@@ -44,7 +47,7 @@ public class AddMovieController implements Initializable {
         } catch (Exception e) {
             displayError(e);
         }
-        categories.add(new Category("sdfds" ,-1)); //TODO This line is Purely for testing purpeses and should be deleted.
+        comboBoxCategory.setItems(indexDataModel.getCategoryObservableList());
     }
 
     private void displayError(Throwable t)
@@ -82,6 +85,9 @@ public class AddMovieController implements Initializable {
 
             if (!checkData(name,categories,imdb,personal,path)) return; //if check returns false, code end here
             Movie movie = new Movie(name, imdb, personal, path, -1);
+
+            movie.setCategories(categories);
+
 
             tbMovie.setTbMovie(movie);
 
@@ -128,13 +134,11 @@ public class AddMovieController implements Initializable {
 
     public void addComboBox(ActionEvent actionEvent) {
         try {
-            if (comboBoxCategory.getValue() == null || comboBoxCategory.getValue().equals("")) return;
+            if (comboBoxCategory.getValue() == null) return;
 
-            Category value = (Category) comboBoxCategory.getValue();
+            if (categories.contains(comboBoxCategory.getValue())) return;
 
-            if (categories.contains(value)) return;
-
-            categories.add(value);
+            categories.add((Category) comboBoxCategory.getValue());
             txtFieldCCat.setText(String.valueOf(categories));
         } catch (Exception e){
             displayError(e);

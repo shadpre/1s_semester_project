@@ -32,4 +32,9 @@ public class Manager {
 
         return arr;
     }
+
+    public Movie addNewMovie(Movie movie) throws Exception {
+        //TODO INSERT DATA INTO DAO Needs to add new ID to Movie
+        return movie;
+    }
 }

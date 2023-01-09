@@ -76,12 +76,11 @@ public class IndexDataModel {
         stage.setScene(new Scene(root1));
         stage.showAndWait();
 
+
         Movie tbMovieWindowResult = tbMovie.getTbMovie();
         if (tbMovieWindowResult == null || movieObservableList.contains(tbMovieWindowResult)) return;
 
-        movieObservableList.add(tbMovieWindowResult);
-
-        //TODO INSERT DATA INTO DAO
+        movieObservableList.add(manager.addNewMovie(tbMovieWindowResult));
 
         tbMovie.setTbMovie(null);
     }
