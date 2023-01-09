@@ -111,9 +111,7 @@ public class IndexDataModel {
 
     public void searchForMovie(String query) throws Exception {
         List<Movie> searchResults = manager.searchMovies(query);
-        movieObservableList.clear();
         movieObservableListByCategory.clear();
-        movieObservableList.addAll(searchResults);
         movieObservableListByCategory.addAll(searchResults);
 
         System.out.println("Searching..." + movieObservableList);
