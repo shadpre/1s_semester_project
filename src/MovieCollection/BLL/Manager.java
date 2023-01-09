@@ -34,7 +34,12 @@ public class Manager {
     }
 
     public Movie addNewMovie(Movie movie) throws Exception {
-        //TODO INSERT DATA INTO DAO Needs to add new ID to Movie
+        //TODO INSERT DATA INTO DAO Needs to add new ID to Movie before return
         return movie;
+    }
+
+    public Category addCategory(Category category) throws Exception {
+        //TODO INSERT DATA INTO DAO Needs to add new ID to Category before return
+        return category;
     }
 }

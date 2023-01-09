@@ -95,9 +95,7 @@ public class IndexDataModel {
         Category tbCategoryEWindowResult = tbCat.getCategory();
         if (tbCategoryEWindowResult == null || categoryObservableList.contains(tbCategoryEWindowResult)) return;
 
-        categoryObservableList.add(tbCategoryEWindowResult);
-
-        //TODO INSERT DATA INTO DAO
+        categoryObservableList.add(manager.addCategory(tbCategoryEWindowResult));
 
         tbCat.setCategory(null);
     }
