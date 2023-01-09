@@ -25,4 +25,8 @@ public class Category {
     public String toString() {
         return  catName ;
     }
+
+    public void setId(int iD) {
+        this.iD = iD;
+    }
 }

@@ -26,12 +26,7 @@ public class Manager {
     }
 
     public ArrayList<Movie> getAllMovies() throws Exception {
-        //return movieDAO.getAllMovies();
-        ArrayList<Movie> arr = new ArrayList<>();
-        arr.add(new Movie("Scream", 4, 8, "PATH",-1));
-        arr.add(new Movie("dam", 7, 2, "PATH", -1));
-
-        return arr;
+        return movieDAO.getAllMovies();
     }
 
     public List<Movie> searchMovies(String query) throws Exception{
@@ -41,20 +36,20 @@ public class Manager {
     }
 
     public Movie addNewMovie(Movie movie) throws Exception {
-        //TODO INSERT DATA INTO DAO Needs to add new ID to Movie before return
+        movie.setId(movieDAO.createMovie(movie));
         return movie;
     }
 
     public Category addCategory(Category category) throws Exception {
-        //TODO INSERT DATA INTO DAO Needs to add new ID to Category before return
+        category.setId(categoryDAO.createCategory(String.valueOf(category)));
         return category;
     }
 
     public void removeCatefory(Category category) throws  Exception {
-        //TODO delete Category from DAO
+        categoryDAO.deleteCategory(category.getID());
     }
 
     public void removeMovie(Movie movie) throws Exception{
-        //TODO delete movie from DAO
+        movieDAO.deleteMovie(movie.getiD());
     }
 }

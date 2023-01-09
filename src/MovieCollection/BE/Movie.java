@@ -29,6 +29,10 @@ public class Movie {
         this.iD = iD;
     }
 
+    public void setId(int iD) {
+        this.iD = iD;
+    }
+
     public String getMovieTittle() {
         return MovieTittle;
     }
