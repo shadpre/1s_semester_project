@@ -80,7 +80,7 @@ public class AddMovieController implements Initializable {
     public void ConfirmAddMovie(ActionEvent actionEvent) {
         try {
             String name = txtFieldTittle.getText();
-            float imdb = getImdb(txtFieldIMDBLink.getText());
+            float imdb = Float.parseFloat(txtFieldIMDBLink.getText());
             float personal = Float.parseFloat(txtInterpersonalScore.getText());
             String path = txtFieldPath.getText();
 
@@ -124,10 +124,6 @@ public class AddMovieController implements Initializable {
         }
 
         return true;
-    }
-
-    private float getImdb(String link) {
-        return 0.0f;
     }
 
     public void cancelAddSong(ActionEvent actionEvent) {
