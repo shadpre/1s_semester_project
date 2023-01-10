@@ -51,4 +51,8 @@ public class Manager {
     public void removeMovie(Movie movie) throws Exception{
         movieDAO.deleteMovie(movie.getiD());
     }
+
+    public void updateDate(Movie movie) throws Exception{
+        //TODO update lastPlayed date
+    }
 }

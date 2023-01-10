@@ -191,6 +191,7 @@ public class IndexDataModel {
         LocalDateTime localDateTime = LocalDateTime.now();
 
         movie.setLastPlayDate(localDateTime);
+        manager.updateDate(movie);
 
         //TODO update last Vive movie date in DAO.
     }
