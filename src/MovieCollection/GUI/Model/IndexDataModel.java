@@ -11,10 +11,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.converter.LocalDateStringConverter;
 
 import java.awt.*;
 import java.io.File;
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class IndexDataModel {
@@ -54,7 +58,9 @@ public class IndexDataModel {
         for(Movie movie:movieObservableList){
             if (movie.getPersonalRating() < minimumRating){
                 oldMovies.add(movie);
-            } //else if () {} //TODO check if movie have not been seen more than 2 years ago
+            } else if (movie.getLastPlayDate() != null && movie.getLastPlayDate().plusYears(2) == LocalDateTime.now()) {
+                oldMovies.add(movie);
+            }
         }
 
         return oldMovies;
@@ -74,7 +80,7 @@ public class IndexDataModel {
         return String.valueOf(movie.getPersonalRating());
     }
 
-    public ObservableList getMoviesFromCategory(int cateforyId) {
+    public ObservableList getMoviesFromCategory(int categoryId) {
         movieObservableListByCategory.clear();
 
         for (Movie movie: movieObservableList) { //TODO Make it add movies by the category Id
@@ -134,13 +140,10 @@ public class IndexDataModel {
 
         if (selectedCategory == null || !categoryObservableList.contains(selectedCategory))  throw new Exception("Item Does Not Exist");
 
-        manager.removeCatefory(selectedCategory);
+        manager.removeCategory(selectedCategory);
 
         categoryObservableList.clear();
         categoryObservableList.addAll(manager.getAllCategories());
-
-        //TODO DELETE CATEGORY
-
     }
 
     public void deleteMovie(Movie selectedMovie) throws Exception {
@@ -150,8 +153,6 @@ public class IndexDataModel {
 
         movieObservableList.clear();
         movieObservableList.addAll(manager.getAllMovies());
-        //TODO DELETE MOVIE
-
     }
     public void filterImdb(String rating, int categoryId) throws Exception {
         ArrayList<Movie> ratedList = new ArrayList<>();
@@ -187,7 +188,11 @@ public class IndexDataModel {
         File file = new File(movie.getLocalFilePath());
         Desktop.getDesktop().open(file);
 
-        //TODO update last Vive movie date.
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        movie.setLastPlayDate(localDateTime);
+
+        //TODO update last Vive movie date in DAO.
     }
 
 }

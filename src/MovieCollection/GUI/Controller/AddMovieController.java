@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -87,7 +88,9 @@ public class AddMovieController implements Initializable {
             Movie movie = new Movie(name, imdb, personal, path, -1);
 
             movie.setCategories(categories);
+            movie.setLastPlayDate(LocalDateTime.now());
 
+            System.out.println(movie.getLastPlayDate().toString());
 
             tbMovie.setTbMovie(movie);
 

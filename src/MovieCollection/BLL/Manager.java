@@ -2,7 +2,6 @@ package MovieCollection.BLL;
 
 import MovieCollection.BE.Category;
 import MovieCollection.BE.Movie;
-import MovieCollection.BE.Subject;
 import MovieCollection.BLL.Util.Searcher;
 import MovieCollection.DAL.CategoryDAO;
 import MovieCollection.DAL.MovieDAO;
@@ -45,7 +44,7 @@ public class Manager {
         return category;
     }
 
-    public void removeCatefory(Category category) throws  Exception {
+    public void removeCategory(Category category) throws  Exception {
         categoryDAO.deleteCategory(category.getID());
     }
 
