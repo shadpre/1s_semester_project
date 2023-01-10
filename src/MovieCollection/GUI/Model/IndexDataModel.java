@@ -12,11 +12,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class IndexDataModel {
-    private float imdbRating;
     private ObservableList<Movie> oldMovies;
     private ObservableList<Movie> movieObservableList;
     private ObservableList<Category> categoryObservableList;
@@ -152,21 +153,41 @@ public class IndexDataModel {
         //TODO DELETE MOVIE
 
     }
-
-    public void addMinimumImdbRating(String rating, int categoryId) throws Exception {
-        getMoviesFromCategory(categoryId);
-        imdbRating = Float.parseFloat(rating);
+    public void filterImdb(String rating, int categoryId) throws Exception {
         ArrayList<Movie> ratedList = new ArrayList<>();
+        getMoviesFromCategory(categoryId);
+        float rate = Float.parseFloat(rating);
 
         for (Movie movie:movieObservableListByCategory) {
-            if (movie.getImdbRating() >= imdbRating){
+            if (movie.getImdbRating() >= rate){
                 ratedList.add(movie);
             }
         }
 
-        System.out.println(ratedList);
+        movieObservableListByCategory.clear();
+        movieObservableListByCategory.addAll(ratedList);
+    }
+
+    public void filterPersonal(String rating, int categoryId) throws Exception {
+        ArrayList<Movie> ratedList = new ArrayList<>();
+        getMoviesFromCategory(categoryId);
+        float rate = Float.parseFloat(rating);
+
+        for (Movie movie:movieObservableListByCategory) {
+            if (movie.getPersonalRating() >= rate){
+                ratedList.add(movie);
+            }
+        }
 
         movieObservableListByCategory.clear();
         movieObservableListByCategory.addAll(ratedList);
     }
+
+    public void openMovieInPlayer(Movie movie) throws Exception{
+        File file = new File(movie.getLocalFilePath());
+        Desktop.getDesktop().open(file);
+
+        //TODO update last Vive movie date.
+    }
+
 }

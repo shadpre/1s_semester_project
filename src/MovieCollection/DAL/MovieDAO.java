@@ -23,7 +23,7 @@ public class MovieDAO implements IMovieDAO{
         try (Connection connection = DatabaseConnector.getInstance().getConnection();
              Statement stmt = connection.createStatement()){
 
-            String sql ="SELECT * FROM MOVIE;";
+            String sql ="SELECT Id, Name, ImdbRating, PersonalRating, Filelink, CONVERT(NVARCHAR,LastView,20) LastView FROM MOVIE;";
 
             ResultSet rs = stmt.executeQuery(sql);
 

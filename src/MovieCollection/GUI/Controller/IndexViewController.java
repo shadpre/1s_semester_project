@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class IndexViewController implements Initializable {
+    @FXML private Button btnFilterPersonal;
     @FXML private Button btnFilter;
     @FXML private TextField txtFieldSearcher;
     @FXML private ListView listViewCategory;
@@ -28,6 +29,8 @@ public class IndexViewController implements Initializable {
     @FXML private Button btnAddCategory;
     @FXML private Button btnDeleteCategory;
     @FXML private Button btnDeleteMovie;
+    private String ratingPersonal;
+    private String ratingImdb;
     private IndexDataModel indexDataModel;
 
     @Override
@@ -37,6 +40,9 @@ public class IndexViewController implements Initializable {
         } catch (Exception e) {
             displayError(e);
         }
+
+        ratingImdb = "";
+        ratingPersonal = "";
 
         start();
         initCategories();
@@ -95,6 +101,18 @@ public class IndexViewController implements Initializable {
         tableOwnRatting.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Movie, String>, ObservableValue<String>>)
                 param -> new SimpleStringProperty(indexDataModel.getPersonalRating(param.getValue())
                 ));
+
+        tableViewMovies.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                var movie = tableViewMovies.getSelectionModel().getSelectedItem();
+
+                try {
+                    indexDataModel.openMovieInPlayer(movie);
+                } catch (Exception e) {
+                    displayError(e);
+                }
+            }
+        });
     }
 
     public void addMovie(ActionEvent actionEvent) {
@@ -169,7 +187,7 @@ public class IndexViewController implements Initializable {
         }
     }
 
-    public void controlFilter(ActionEvent actionEvent) {
+    public void controlFilterIMDB(ActionEvent actionEvent) {
         var categoryId = listViewCategory.getSelectionModel().getSelectedIndex();
 
         TextInputDialog dialog = new TextInputDialog();
@@ -180,10 +198,31 @@ public class IndexViewController implements Initializable {
         var result = dialog.showAndWait();
         result.ifPresent(rating -> {
             try {
-                indexDataModel.addMinimumImdbRating(rating, categoryId);
+                ratingImdb = rating;
+                indexDataModel.filterImdb(rating,categoryId);
             } catch (Exception e) {
                 displayError(e);
             }
         });
     }
+
+    public void controlFilterPersonal(ActionEvent actionEvent) {
+        var categoryId = listViewCategory.getSelectionModel().getSelectedIndex();
+
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setGraphic(null);
+        dialog.setHeaderText(null);
+        dialog.setTitle("Add Minimum Personal rating");
+        dialog.setContentText("rating:");
+        var result = dialog.showAndWait();
+        result.ifPresent(rating -> {
+            try {
+                ratingPersonal = rating;
+                indexDataModel.filterPersonal(rating,categoryId);
+            } catch (Exception e) {
+                displayError(e);
+            }
+        });
+    }
+
 }
