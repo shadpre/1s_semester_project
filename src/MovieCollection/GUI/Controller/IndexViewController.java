@@ -79,7 +79,11 @@ public class IndexViewController implements Initializable {
             if (event.getClickCount() == 2) {
                 var categoryId = listViewCategory.getSelectionModel().getSelectedIndex();
 
-                tableViewMovies.setItems(indexDataModel.getMoviesFromCategory(categoryId));
+                try {
+                    tableViewMovies.setItems(indexDataModel.getMoviesFromCategory(categoryId));
+                } catch (Exception e) {
+                    displayError(e);
+                }
             }
         });
     }

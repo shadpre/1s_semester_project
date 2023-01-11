@@ -11,14 +11,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.converter.LocalDateStringConverter;
 
 import java.awt.*;
 import java.io.File;
-import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class IndexDataModel {
@@ -52,17 +49,9 @@ public class IndexDataModel {
     public ObservableList getCategoryObservableList() {
         return categoryObservableList;
     }
-    public ObservableList getAllOldMovies(){
-        float minimumRating = 6;
-
-        for(Movie movie:movieObservableList){
-            if (movie.getPersonalRating() < minimumRating){
-                oldMovies.add(movie);
-            } else if (movie.getLastPlayDate() != null && movie.getLastPlayDate().plusYears(2) == LocalDateTime.now()) {
-                oldMovies.add(movie);
-            }
-        }
-
+    public ObservableList getAllOldMovies() throws Exception{
+        oldMovies.clear();
+        oldMovies.addAll(manager.getAllMoviesForDeletion());
         return oldMovies;
     }
 
@@ -80,12 +69,13 @@ public class IndexDataModel {
         return String.valueOf(movie.getPersonalRating());
     }
 
-    public ObservableList getMoviesFromCategory(int categoryId) {
+    public ObservableList getMoviesFromCategory(int categoryId) throws Exception{
         movieObservableListByCategory.clear();
-
+        movieObservableListByCategory.setAll(manager.getAllMovieCategories(categoryId));
+        /*
         for (Movie movie: movieObservableList) { //TODO Make it add movies by the category Id
             movieObservableListByCategory.add(movie);
-        }
+        }*/
         return movieObservableListByCategory;
     }
 
@@ -192,8 +182,5 @@ public class IndexDataModel {
 
         movie.setLastPlayDate(localDateTime);
         manager.updateDate(movie);
-
-        //TODO update last Vive movie date in DAO.
     }
-
 }
