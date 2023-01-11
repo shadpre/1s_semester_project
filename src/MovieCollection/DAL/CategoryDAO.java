@@ -112,7 +112,7 @@ public class CategoryDAO implements ICategoryDAO{
 
         try (Connection connection = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT Id, Name FROM Category WHERE Id IN " +
-                    "(SELECT DISTINCT CategoryId FROM CatMovie WHERE MovieId = ?";
+                    "(SELECT DISTINCT CategoryId FROM CatMovie WHERE MovieId = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, movie.getiD());
 

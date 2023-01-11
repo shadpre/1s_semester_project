@@ -137,10 +137,15 @@ public class EditMovieController implements Initializable {
             txtInterpersonalScore.setText(String.valueOf(chosenMovie.getPersonalRating()));
 
             if (chosenMovie.getCategories().isEmpty()) return;
+            System.out.println(chosenMovie.getCategories().size());
+
+            categories.clear();
 
             for (Category category : chosenMovie.getCategories()) {
                 categories.add(category);
             }
+            txtFieldCCat.setText(String.valueOf(categories));
+
         } catch (Exception e) {
             displayError(e);
         }
