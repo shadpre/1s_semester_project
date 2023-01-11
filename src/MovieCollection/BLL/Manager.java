@@ -53,6 +53,14 @@ public class Manager {
     }
 
     public void updateDate(Movie movie) throws Exception{
-        //TODO update lastPlayed date
+        movieDAO.setViewDate(movie.getiD());
+    }
+
+    public List<Movie> getAllMovieCategories(int categoryId) throws Exception{
+        return movieDAO.getMoviesByCategory(categoryId);
+    }
+
+    public List<Movie> getAllMoviesForDeletion() throws Exception {
+        return movieDAO.getMoviesForDeletion();
     }
 }

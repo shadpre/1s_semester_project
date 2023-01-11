@@ -53,16 +53,16 @@ public class MovieDAO implements IMovieDAO{
     }
 
     @Override
-    public ArrayList<Movie> getMoviesByCategory(Category category) throws Exception{
+    public ArrayList<Movie> getMoviesByCategory(int categoryId) throws Exception{
 
         ArrayList<Movie> allMovies = new ArrayList<>();
 
         try (Connection connection = DatabaseConnector.getInstance().getConnection()){
             String sql ="SELECT Id, Name, ImdbRating, PersonalRating, Filelink, CONVERT(NVARCHAR,LastView,20) LastView FROM MOVIE WHERE " +
-                    "Id IN (SELECT DISTINCT MovieId FROM CatMovie WHERE CategoryId = ?";
+                    "Id IN (SELECT DISTINCT MovieId FROM CatMovie WHERE CategoryId = ?)";
             PreparedStatement stmt = connection.prepareStatement(sql);
 
-            stmt.setInt(1, category.getID());
+            stmt.setInt(1, categoryId);
 
             ResultSet rs = stmt.executeQuery();
 
