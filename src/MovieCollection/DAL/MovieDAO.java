@@ -25,7 +25,7 @@ public class MovieDAO implements IMovieDAO{
         try (Connection connection = DatabaseConnector.getInstance().getConnection();
              Statement stmt = connection.createStatement()){
 
-            String sql ="SELECT Id, Name, ImdbRating, PersonalRating, Filelink, CONVERT(NVARCHAR,LastView,20) LastView FROM MOVIE;";
+            String sql ="SELECT Id, Name, ROUND(ImdbRating, 2) ImdbRating, ROUND(PersonalRating, 2) PersonalRating, Filelink, CONVERT(NVARCHAR,LastView,20) LastView FROM MOVIE;";
 
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -34,8 +34,8 @@ public class MovieDAO implements IMovieDAO{
             while(rs.next()) {
                 int iD = rs.getInt("Id");
                 String Name = rs.getString("Name");
-                int imdb = rs.getInt("ImdbRating");
-                int personalRating = rs.getInt("PersonalRating");
+                float imdb = rs.getFloat("ImdbRating");
+                float personalRating = rs.getFloat("PersonalRating");
                 String path = rs.getString("Filelink");
                 LocalDateTime lastViewDate = LocalDateTime.parse(rs.getString("LastView"), formatter);
 
@@ -60,7 +60,7 @@ public class MovieDAO implements IMovieDAO{
         ArrayList<Movie> allMovies = new ArrayList<>();
 
         try (Connection connection = DatabaseConnector.getInstance().getConnection()){
-            String sql ="SELECT Id, Name, ImdbRating, PersonalRating, Filelink, CONVERT(NVARCHAR,LastView,20) LastView FROM MOVIE WHERE " +
+            String sql ="SELECT Id, Name, ROUND(ImdbRating, 2) ImdbRating, ROUND(PersonalRating, 2) PersonalRating, Filelink, CONVERT(NVARCHAR,LastView,20) LastView FROM MOVIE WHERE " +
                     "Id IN (SELECT DISTINCT MovieId FROM CatMovie WHERE CategoryId = ?)";
             PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -74,8 +74,8 @@ public class MovieDAO implements IMovieDAO{
             while(rs.next()) {
                 int iD = rs.getInt("Id");
                 String Name = rs.getString("Name");
-                int imdb = rs.getInt("ImdbRating");
-                int personalRating = rs.getInt("PersonalRating");
+                float imdb = rs.getFloat("ImdbRating");
+                float personalRating = rs.getFloat("PersonalRating");
                 String path = rs.getString("Filelink");
                 LocalDateTime lastViewDate = LocalDateTime.parse(rs.getString("LastView"), formatter);
 
@@ -108,8 +108,8 @@ public class MovieDAO implements IMovieDAO{
             while(rs.next()) {
                 int iD = rs.getInt("Id");
                 String Name = rs.getString("Name");
-                int imdb = rs.getInt("ImdbRating");
-                int personalRating = rs.getInt("PersonalRating");
+                float imdb = rs.getFloat("ImdbRating");
+                float personalRating = rs.getFloat("PersonalRating");
                 String path = rs.getString("Filelink");
                 LocalDateTime lastViewDate = LocalDateTime.parse(rs.getString("LastView"), formatter);
 
