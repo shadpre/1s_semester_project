@@ -45,6 +45,7 @@ public class MovieDAO implements IMovieDAO{
             }
         } catch (Exception e){
             e.printStackTrace();
+            throw e;
         }
 
         return allMovies;
@@ -57,8 +58,6 @@ public class MovieDAO implements IMovieDAO{
         ArrayList<Movie> allMovies = new ArrayList<>();
 
         try (Connection connection = DatabaseConnector.getInstance().getConnection()){
-
-
             String sql ="SELECT Id, Name, ImdbRating, PersonalRating, Filelink, CONVERT(NVARCHAR,LastView,20) LastView FROM MOVIE WHERE " +
                     "Id IN (SELECT DISTINCT MovieId FROM CatMovie WHERE CategoryId = ?";
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -84,10 +83,44 @@ public class MovieDAO implements IMovieDAO{
             }
         } catch (Exception e){
             e.printStackTrace();
+            throw e;
         }
 
         return allMovies;
     }
+
+    @Override
+    public  ArrayList<Movie> getMoviesForDeletion() throws Exception{
+        ArrayList<Movie> allMovies = new ArrayList<>();
+        try(Connection connection = DatabaseConnector.getInstance().getConnection()){
+            String query = "SELECT Id, Name, ImdbRating, PersonalRating, Filelink, CONVERT(NVARCHAR,LastView,20) LastView " +
+                    "FROM Movie WHERE LastView < (DATEADD(YEAR,-2,GETDATE())) and PersonalRating < 6";
+
+            PreparedStatement stmt = connection.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            while(rs.next()) {
+                int iD = rs.getInt("Id");
+                String Name = rs.getString("Name");
+                int imdb = rs.getInt("ImdbRating");
+                int personalRating = rs.getInt("PersonalRating");
+                String path = rs.getString("Filelink");
+                LocalDateTime lastViewDate = LocalDateTime.parse(rs.getString("LastView"), formatter);
+
+                Movie movie = new Movie(Name, imdb,personalRating,path,iD);
+                movie.setLastPlayDate(lastViewDate);
+
+                allMovies.add(movie);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+        return allMovies;
+    }
+
 
     @Override
     public void deleteMovie(int id) throws Exception {
