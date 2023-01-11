@@ -80,8 +80,8 @@ public class AddMovieController implements Initializable {
     public void ConfirmAddMovie(ActionEvent actionEvent) {
         try {
             String name = txtFieldTittle.getText();
-            float imdb = Float.parseFloat(txtFieldIMDBLink.getText());
-            float personal = Float.parseFloat(txtInterpersonalScore.getText());
+            float imdb = Float.parseFloat(txtFieldIMDBLink.getText().replace(',','.'));
+            float personal = Float.parseFloat(txtInterpersonalScore.getText().replace(',','.'));
             String path = txtFieldPath.getText();
 
             if (!checkData(name,categories,imdb,personal,path)) return; //if check returns false, code end here
