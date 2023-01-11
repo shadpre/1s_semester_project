@@ -22,6 +22,8 @@ public class IndexViewController implements Initializable {
     @FXML private ComboBox comboBoxFilter;
     @FXML private Button btnFilterPersonal;
     @FXML private Button btnFilter;
+    @FXML private Button btnEditMovie;
+
     @FXML private TextField txtFieldSearcher;
     @FXML private ListView listViewCategory;
     @FXML private TableView<Movie> tableViewMovies;
@@ -173,12 +175,12 @@ public class IndexViewController implements Initializable {
         try {
             System.out.println("Delete Category");
 
-            Dialog<Category> deleteSongDialog = new ChoiceDialog<>(null, indexDataModel.getCategoryObservableList());
-            deleteSongDialog.setGraphic(null);
-            deleteSongDialog.setHeaderText(null);
-            deleteSongDialog.setTitle("Delete a Cat");
-            deleteSongDialog.setContentText("Delete Category: ");
-            var result = deleteSongDialog.showAndWait();
+            Dialog<Category> deleteCategory = new ChoiceDialog<>(null, indexDataModel.getCategoryObservableList());
+            deleteCategory.setGraphic(null);
+            deleteCategory.setHeaderText(null);
+            deleteCategory.setTitle("Delete a Cat");
+            deleteCategory.setContentText("Delete Category: ");
+            var result = deleteCategory.showAndWait();
             result.ifPresent(selectedCategory -> {
                 try {
                     indexDataModel.deleteCategory(selectedCategory);
@@ -197,12 +199,12 @@ public class IndexViewController implements Initializable {
         try {
             System.out.println("Delete movies");
 
-            Dialog<Movie> deleteSongDialog = new ChoiceDialog<>(null, indexDataModel.getMovieObservableList());
-            deleteSongDialog.setGraphic(null);
-            deleteSongDialog.setHeaderText(null);
-            deleteSongDialog.setTitle("Delete a Movie");
-            deleteSongDialog.setContentText("Delete Movie: ");
-            var result = deleteSongDialog.showAndWait();
+            Dialog<Movie> deleteMovie = new ChoiceDialog<>(null, indexDataModel.getMovieObservableList());
+            deleteMovie.setGraphic(null);
+            deleteMovie.setHeaderText(null);
+            deleteMovie.setTitle("Delete a Movie");
+            deleteMovie.setContentText("Delete Movie: ");
+            var result = deleteMovie.showAndWait();
             result.ifPresent(selectedMovie -> {
                 try {
                     indexDataModel.deleteMovie(selectedMovie);
@@ -210,6 +212,19 @@ public class IndexViewController implements Initializable {
                     throw new RuntimeException(e);
                 }
             });
+
+            tableViewMovies.refresh();
+
+        } catch (Exception e) {
+            displayError(e);
+        }
+    }
+
+    public void editMovie(ActionEvent actionEvent) {
+        try {
+            System.out.println("Edit movies");
+
+            indexDataModel.editMovie();
 
             tableViewMovies.refresh();
 

@@ -110,6 +110,27 @@ public class IndexDataModel {
         tbCat.setCategory(null);
     }
 
+    public void editMovie() throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/MovieCollection/GUI/View/EditMovie.fxml"));
+        Parent root2 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root2));
+        stage.showAndWait();
+
+
+        Movie tbMovieWindowResult = tbMovie.getTbMovie();
+        if (tbMovieWindowResult == null) return;
+
+        manager.changeMovie(tbMovieWindowResult);
+
+        movieObservableList.clear();
+        movieObservableList.addAll(manager.getAllMovies());
+
+        tbMovie.setTbMovie(null);
+
+        //TODO Edit Movie
+    }
+
     public void startPopUp() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/MovieCollection/GUI/View/PopUpDelete.fxml"));
         Parent root3 = (Parent) fxmlLoader.load();
@@ -192,4 +213,5 @@ public class IndexDataModel {
         movie.setLastPlayDate(localDateTime);
         manager.updateDate(movie);
     }
+
 }

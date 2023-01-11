@@ -2,12 +2,8 @@ package MovieCollection.GUI.Controller;
 
 import MovieCollection.BE.Category;
 import MovieCollection.BE.Movie;
-import MovieCollection.BLL.Util.TupleCategory;
 import MovieCollection.BLL.Util.TupleMovie;
 import MovieCollection.GUI.Model.IndexDataModel;
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,12 +17,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class AddMovieController implements Initializable {
-    @FXML  private TextField txtFieldTittle;
+public class EditMovieController implements Initializable {
+    @FXML ComboBox comboBoxMovie;
+    @FXML
+    private TextField txtFieldTittle;
     @FXML  private TextField txtFieldIMDBLink;
     @FXML  private TextField txtInterpersonalScore;
-    @FXML  private Button btnSelectFile;
-    @FXML  private TextField txtFieldPath;
     @FXML  private Button btnConfirm;
     @FXML  private Button btnCancel;
     @FXML  private ComboBox comboBoxCategory;
@@ -37,6 +33,8 @@ public class AddMovieController implements Initializable {
     private IndexDataModel indexDataModel;
     private ArrayList<Category> categories;
     private TupleMovie tbMovie;
+    private Movie chosenMovie;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -49,6 +47,7 @@ public class AddMovieController implements Initializable {
             displayError(e);
         }
         comboBoxCategory.setItems(indexDataModel.getCategoryObservableList());
+        comboBoxMovie.setItems(indexDataModel.getMovieObservableList());
     }
 
     private void displayError(Throwable t)
@@ -60,39 +59,25 @@ public class AddMovieController implements Initializable {
     }
 
 
-    public void selectFile(ActionEvent actionEvent) {
-        try {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Select song");
-            fileChooser.getExtensionFilters().add(
-                    new FileChooser.ExtensionFilter("Video File", "*.mp4", "*.mpeg4"));
-            Stage stage = (Stage) btnSelectFile.getScene().getWindow();
-            File selectedFile = fileChooser.showOpenDialog(stage);
-            if (selectedFile != null) {
-                txtFieldPath.setText(String.valueOf(selectedFile));
-                txtFieldTittle.setText(selectedFile.getName());
-            }
-        } catch (Exception e) {
-            displayError(e);
-        }
-    }
-
     public void ConfirmAddMovie(ActionEvent actionEvent) {
         try {
+            if (chosenMovie == null) return;
+
             String name = txtFieldTittle.getText();
             float imdb = Float.parseFloat(txtFieldIMDBLink.getText().replace(',','.'));
             float personal = Float.parseFloat(txtInterpersonalScore.getText().replace(',','.'));
-            String path = txtFieldPath.getText();
 
-            if (!checkData(name,categories,imdb,personal,path)) return; //if check returns false, code end here
-            Movie movie = new Movie(name, imdb, personal, path, -1);
+            if (!checkData(name,categories,imdb,personal)) return; //if check returns false, code end here
+            chosenMovie.setMovieTittle(name);
+            chosenMovie.setImdbRating(imdb);
+            chosenMovie.setPersonalRating(personal);
 
-            movie.setCategories(categories);
-            movie.setLastPlayDate(LocalDateTime.now());
+            chosenMovie.setCategories(categories);
+            chosenMovie.setLastPlayDate(LocalDateTime.now());
 
-            System.out.println(movie.getLastPlayDate().toString());
+            System.out.println(chosenMovie.getLastPlayDate().toString());
 
-            tbMovie.setTbMovie(movie);
+            tbMovie.setTbMovie(chosenMovie);
 
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();
@@ -101,25 +86,25 @@ public class AddMovieController implements Initializable {
         }
     }
 
-    private boolean checkData(String name, ArrayList<Category> cat, float imdb, float personal, String path){
-        if (name == null || name.isEmpty() || name.trim().isEmpty()){
+    private boolean checkData(String name, ArrayList<Category> cat, float imdb, float personal){
+        if (chosenMovie == null) {
+            lblDisplayMissingElement.setText("Chose A Movie");
+            return false;
+        }
+        else if (name == null || name.isEmpty() || name.trim().isEmpty()){
             lblDisplayMissingElement.setText("Missing a name.");
             return false;
         }
-        if (cat.isEmpty()) {
+        else if (cat.isEmpty()) {
             lblDisplayMissingElement.setText("Missing one or more categories.");
             return false;
         }
-        if (imdb < 0.0 || imdb > 10.00) {
+        else if (imdb < 0.0 || imdb > 10.00) {
             lblDisplayMissingElement.setText("The IMDB Rating encountered an error");
             return false;
         }
-        if (personal < 0.0 || personal > 10.00) {
+        else if (personal < 0.0 || personal > 10.00) {
             lblDisplayMissingElement.setText("The rating is not between 0 and 10.");
-            return false;
-        }
-        if (path == null || path.isEmpty()) {
-            lblDisplayMissingElement.setText("You need to select a file.");
             return false;
         }
 
@@ -144,6 +129,20 @@ public class AddMovieController implements Initializable {
         }
     }
 
+    public void SetDefaultValues(ActionEvent actionEvent) throws Exception{
+        try {
+            chosenMovie = (Movie) comboBoxMovie.getValue();
+            txtFieldTittle.setText(chosenMovie.getMovieTittle());
+            txtFieldIMDBLink.setText(String.valueOf(chosenMovie.getImdbRating()));
+            txtInterpersonalScore.setText(String.valueOf(chosenMovie.getPersonalRating()));
+
+            if (chosenMovie.getCategories().isEmpty()) return;
+
+            for (Category category : chosenMovie.getCategories()) {
+                categories.add(category);
+            }
+        } catch (Exception e) {
+            displayError(e);
+        }
+    }
 }
-
-

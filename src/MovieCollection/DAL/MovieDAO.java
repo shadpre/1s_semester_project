@@ -190,6 +190,7 @@ public class MovieDAO implements IMovieDAO{
             statement.setFloat(2, movie.getImdbRating());
             statement.setFloat(3, movie.getPersonalRating());
             statement.setString(4, movie.getLocalFilePath());
+            statement.setInt(5, movie.getiD());
 
             int result = statement.executeUpdate();
 

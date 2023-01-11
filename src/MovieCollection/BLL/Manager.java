@@ -63,4 +63,8 @@ public class Manager {
     public List<Movie> getAllMoviesForDeletion() throws Exception {
         return movieDAO.getMoviesForDeletion();
     }
+
+    public void changeMovie(Movie changedMovie) throws Exception{
+        movieDAO.updateMovie(changedMovie);
+    }
 }
