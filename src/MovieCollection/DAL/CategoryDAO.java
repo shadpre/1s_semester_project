@@ -1,10 +1,12 @@
 package MovieCollection.DAL;
 
 import MovieCollection.BE.Category;
+import MovieCollection.BE.Movie;
 import MovieCollection.BLL.DatabaseConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -102,5 +104,26 @@ public class CategoryDAO implements ICategoryDAO{
             }
         }
 
+    }
+
+    @Override
+    public ArrayList<Category> getCategoriesByMovie(Movie movie) throws Exception{
+        ArrayList<Category> MovieCategories = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnector.getInstance().getConnection()){
+            String query = "SELECT Id, Name FROM Category WHERE Id IN " +
+                    "(SELECT DISTINCT CategoryId FROM CatMovie WHERE MovieId = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, movie.getiD());
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                MovieCategories.add(new Category(
+                        rs.getString("Name"),
+                        rs.getInt("Id")
+                ));
+            }
+        }
+        return MovieCategories;
     }
 }

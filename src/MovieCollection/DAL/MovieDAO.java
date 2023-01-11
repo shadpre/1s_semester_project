@@ -3,6 +3,7 @@ package MovieCollection.DAL;
 import MovieCollection.BE.Category;
 import MovieCollection.BE.Movie;
 import MovieCollection.BLL.DatabaseConnector;
+import MovieCollection.BLL.Manager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,7 +30,7 @@ public class MovieDAO implements IMovieDAO{
             ResultSet rs = stmt.executeQuery(sql);
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
+            Manager manager = new Manager();
             while(rs.next()) {
                 int iD = rs.getInt("Id");
                 String Name = rs.getString("Name");
@@ -40,6 +41,7 @@ public class MovieDAO implements IMovieDAO{
 
                 Movie movie = new Movie(Name, imdb,personalRating,path,iD);
                 movie.setLastPlayDate(lastViewDate);
+                movie.setCategories(manager.getCategoriesForMovie(movie));
 
                 allMovies.add(movie);
             }
@@ -67,6 +69,7 @@ public class MovieDAO implements IMovieDAO{
             ResultSet rs = stmt.executeQuery();
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            Manager manager = new Manager();
 
             while(rs.next()) {
                 int iD = rs.getInt("Id");
@@ -78,6 +81,7 @@ public class MovieDAO implements IMovieDAO{
 
                 Movie movie = new Movie(Name, imdb,personalRating,path,iD);
                 movie.setLastPlayDate(lastViewDate);
+                movie.setCategories(manager.getCategoriesForMovie(movie));
 
                 allMovies.add(movie);
             }

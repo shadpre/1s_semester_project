@@ -1,6 +1,7 @@
 package MovieCollection.DAL;
 
 import MovieCollection.BE.Category;
+import MovieCollection.BE.Movie;
 
 import java.util.ArrayList;
 
@@ -10,4 +11,5 @@ public interface ICategoryDAO {
     ArrayList<Category> getAllCategories() throws Exception;
     int editCategory(Category category) throws Exception;
     void deleteCategory(int id) throws Exception;
+    ArrayList<Category> getCategoriesByMovie(Movie movie) throws Exception;
 }

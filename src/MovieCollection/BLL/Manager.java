@@ -67,4 +67,8 @@ public class Manager {
     public void changeMovie(Movie changedMovie) throws Exception{
         movieDAO.updateMovie(changedMovie);
     }
+
+    public ArrayList<Category> getCategoriesForMovie(Movie movie) throws Exception{
+        return categoryDAO.getCategoriesByMovie(movie);
+    }
 }
