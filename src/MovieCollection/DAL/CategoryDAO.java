@@ -85,9 +85,15 @@ public class CategoryDAO implements ICategoryDAO{
     public void deleteCategory(int id) throws Exception {
 
         try (Connection connection = DatabaseConnector.getInstance().getConnection()){
-            String query = "DELETE Category WHERE ID = ?";
-
+            String query = "Delete CatMovie where CategoryId = ?";
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,id);
+            statement.executeUpdate();
+
+
+            query = "DELETE Category WHERE ID = ?";
+
+            statement = connection.prepareStatement(query);
             statement.setInt(1,id);
             int result = statement.executeUpdate();
 
