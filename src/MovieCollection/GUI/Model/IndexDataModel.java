@@ -145,30 +145,39 @@ public class IndexDataModel {
         movieObservableList.addAll(manager.getAllMovies());
     }
     public void filterImdb(String rating, int categoryId) throws Exception {
+        if (rating.isEmpty()) return;
+
         ArrayList<Movie> ratedList = new ArrayList<>();
         getMoviesFromCategory(categoryId);
-        float rate = Float.parseFloat(rating);
+        float rate = Float.parseFloat(rating.replace(',','.'));
 
         for (Movie movie:movieObservableListByCategory) {
+
             if (movie.getImdbRating() >= rate){
                 ratedList.add(movie);
             }
         }
+
+        System.out.println(ratedList);
 
         movieObservableListByCategory.clear();
         movieObservableListByCategory.addAll(ratedList);
     }
 
     public void filterPersonal(String rating, int categoryId) throws Exception {
+        if (rating.isEmpty()) return;
+
         ArrayList<Movie> ratedList = new ArrayList<>();
         getMoviesFromCategory(categoryId);
-        float rate = Float.parseFloat(rating);
+        float rate = Float.parseFloat(rating.replace(',','.'));
 
         for (Movie movie:movieObservableListByCategory) {
             if (movie.getPersonalRating() >= rate){
                 ratedList.add(movie);
             }
         }
+
+        System.out.println(ratedList);
 
         movieObservableListByCategory.clear();
         movieObservableListByCategory.addAll(ratedList);

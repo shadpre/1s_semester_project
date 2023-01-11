@@ -19,7 +19,8 @@ public class CategoryDAO implements ICategoryDAO{
             statement.setString(1, category);
             statement.executeQuery();
 
-            var resultSet = statement.getGeneratedKeys();
+            var resultSet = statement.getResultSet();
+
             if (resultSet.next()) {
                 return resultSet.getInt(1);
             }

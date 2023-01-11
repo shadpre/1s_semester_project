@@ -5,6 +5,8 @@ import MovieCollection.BE.Movie;
 import MovieCollection.GUI.Model.IndexDataModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,9 +15,11 @@ import javafx.scene.control.skin.TableHeaderRow;
 import javafx.util.Callback;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class IndexViewController implements Initializable {
+    @FXML private ComboBox comboBoxFilter;
     @FXML private Button btnFilterPersonal;
     @FXML private Button btnFilter;
     @FXML private TextField txtFieldSearcher;
@@ -29,9 +33,8 @@ public class IndexViewController implements Initializable {
     @FXML private Button btnAddCategory;
     @FXML private Button btnDeleteCategory;
     @FXML private Button btnDeleteMovie;
-    private String ratingPersonal;
-    private String ratingImdb;
     private IndexDataModel indexDataModel;
+    private ObservableList<String> filterList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -41,18 +44,34 @@ public class IndexViewController implements Initializable {
             displayError(e);
         }
 
-        ratingImdb = "";
-        ratingPersonal = "";
+        filterList = FXCollections.observableArrayList();
 
         start();
         initCategories();
         initTreeMovies();
+        initFilterList();
 
         txtFieldSearcher.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            try {
-                indexDataModel.searchForMovie(newValue);
-            } catch (Exception e){
-                displayError(e);
+            if (comboBoxFilter.getValue() == "Search") {
+                try {
+                    indexDataModel.searchForMovie(newValue);
+                } catch (Exception e) {
+                    displayError(e);
+                }
+            } else if (comboBoxFilter.getValue() == "IMDB min") {
+                try {
+                    var category = (Category) listViewCategory.getSelectionModel().getSelectedItem();
+                    indexDataModel.filterImdb(newValue, category.getID());
+                } catch (Exception e) {
+                    displayError(e);
+                }
+            } else if (comboBoxFilter.getValue() == "Personal min") {
+                try {
+                    var category = (Category) listViewCategory.getSelectionModel().getSelectedItem();
+                    indexDataModel.filterPersonal(newValue,category.getID());
+                } catch (Exception e) {
+                    displayError(e);
+                }
             }
         });
     }
@@ -72,15 +91,23 @@ public class IndexViewController implements Initializable {
             displayError(e);
         }
     }
+    private void initFilterList() {
+        filterList.add("Search");
+        filterList.add("IMDB min");
+        filterList.add("Personal min");
+        comboBoxFilter.setItems(filterList);
+
+        //TODO
+    }
     private void initCategories(){
         listViewCategory.setItems(indexDataModel.getCategoryObservableList());
 
         listViewCategory.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
-                var categoryId = listViewCategory.getSelectionModel().getSelectedIndex();
+                var category = (Category) listViewCategory.getSelectionModel().getSelectedItem();
 
                 try {
-                    tableViewMovies.setItems(indexDataModel.getMoviesFromCategory(categoryId));
+                    tableViewMovies.setItems(indexDataModel.getMoviesFromCategory(category.getID()));
                 } catch (Exception e) {
                     displayError(e);
                 }
@@ -190,43 +217,4 @@ public class IndexViewController implements Initializable {
             displayError(e);
         }
     }
-
-    public void controlFilterIMDB(ActionEvent actionEvent) {
-        var categoryId = listViewCategory.getSelectionModel().getSelectedIndex();
-
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setGraphic(null);
-        dialog.setHeaderText(null);
-        dialog.setTitle("Add Minimum IMDB rating");
-        dialog.setContentText("rating:");
-        var result = dialog.showAndWait();
-        result.ifPresent(rating -> {
-            try {
-                ratingImdb = rating;
-                indexDataModel.filterImdb(rating,categoryId);
-            } catch (Exception e) {
-                displayError(e);
-            }
-        });
-    }
-
-    public void controlFilterPersonal(ActionEvent actionEvent) {
-        var categoryId = listViewCategory.getSelectionModel().getSelectedIndex();
-
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setGraphic(null);
-        dialog.setHeaderText(null);
-        dialog.setTitle("Add Minimum Personal rating");
-        dialog.setContentText("rating:");
-        var result = dialog.showAndWait();
-        result.ifPresent(rating -> {
-            try {
-                ratingPersonal = rating;
-                indexDataModel.filterPersonal(rating,categoryId);
-            } catch (Exception e) {
-                displayError(e);
-            }
-        });
-    }
-
 }
