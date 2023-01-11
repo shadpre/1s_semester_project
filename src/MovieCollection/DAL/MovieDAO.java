@@ -127,9 +127,14 @@ public class MovieDAO implements IMovieDAO{
 
 
         try (Connection connection = DatabaseConnector.getInstance().getConnection()){
-            String query = "DELETE Movie WHERE ID = ?";
-
+            String query = "DELETE CatMovie WHERE MovieId = ?";
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+            query = "DELETE Movie WHERE ID = ?";
+
+            statement = connection.prepareStatement(query);
             statement.setInt(1,id);
             int result = statement.executeUpdate();
 
@@ -144,7 +149,7 @@ public class MovieDAO implements IMovieDAO{
     public int createMovie(Movie movie) throws Exception {
 
         try(Connection connection = DatabaseConnector.getInstance().getConnection()){
-            String query = "INSERT INTO Movie ( Name, ImdbRating, PersonalRating, Filelink) VALUES (?,?,?,?)";
+            String query = "INSERT INTO Movie ( Name, ImdbRating, PersonalRating, Filelink, LastView) VALUES (?,?,?,?,GETDATE())";
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1,movie.getMovieTittle());
@@ -153,6 +158,16 @@ public class MovieDAO implements IMovieDAO{
             statement.setString(4, movie.getLocalFilePath());
 
             var res = statement.executeQuery();
+
+            query = "INSERT INTO CatMovie (CategoryId, MovieId) Values (?, ?)";
+
+            for (Category category: movie.getCategories()
+                 ) {
+                        statement = connection.prepareStatement(query);
+                        statement.setInt(1, category.getID());
+                        statement.setInt(2, movie.getiD());
+                        statement.executeUpdate();
+            }
 
             if (res.next()) {
                 return res.getInt(1);
@@ -175,6 +190,21 @@ public class MovieDAO implements IMovieDAO{
             statement.setString(4, movie.getLocalFilePath());
 
             int result = statement.executeUpdate();
+
+            query = "DELETE CatMovie WHERE MovieId = ?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, movie.getiD());
+            statement.executeUpdate();
+
+            query = "INSERT INTO CatMovie (CategoryId, MovieId) Values (?, ?)";
+
+            for (Category category: movie.getCategories()
+            ) {
+                statement = connection.prepareStatement(query);
+                statement.setInt(1, category.getID());
+                statement.setInt(2, movie.getiD());
+                statement.executeUpdate();
+            }
 
             if (result == 0){
                 Exception ex = new Exception("Intet opdateret");
