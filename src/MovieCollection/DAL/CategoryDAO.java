@@ -17,13 +17,17 @@ public class CategoryDAO implements ICategoryDAO{
 
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, category);
+            statement.executeQuery();
 
             var resultSet = statement.getGeneratedKeys();
-            return resultSet.getInt(1);
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
         }
         catch (Exception ex){
             throw ex;
         }
+        return -1;
     }
 
     @Override
