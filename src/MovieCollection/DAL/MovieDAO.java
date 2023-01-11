@@ -159,15 +159,7 @@ public class MovieDAO implements IMovieDAO{
 
             var res = statement.executeQuery();
 
-            query = "INSERT INTO CatMovie (CategoryId, MovieId) Values (?, ?)";
 
-            for (Category category: movie.getCategories()
-                 ) {
-                        statement = connection.prepareStatement(query);
-                        statement.setInt(1, category.getID());
-                        statement.setInt(2, movie.getiD());
-                        statement.executeUpdate();
-            }
 
             if (res.next()) {
                 int result = res.getInt(1);
