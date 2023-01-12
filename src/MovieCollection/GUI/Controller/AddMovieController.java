@@ -68,7 +68,7 @@ public class AddMovieController implements Initializable {
                     new FileChooser.ExtensionFilter("Video File", "*.mp4", "*.mpeg4"));
             Stage stage = (Stage) btnSelectFile.getScene().getWindow();
             File selectedFile = fileChooser.showOpenDialog(stage);
-            if (selectedFile != null && selectedFile.getName().contains(".mp4") || selectedFile != null && selectedFile.getName().contains(".mpeg4")) {
+            if (selectedFile != null && selectedFile.getName().endsWith(".mp4") || selectedFile != null && selectedFile.getName().endsWith(".mpeg4")) {
                 txtFieldPath.setText(String.valueOf(selectedFile));
                 txtFieldTittle.setText(selectedFile.getName());
             } else {
