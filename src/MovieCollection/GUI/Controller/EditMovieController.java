@@ -54,7 +54,7 @@ public class EditMovieController implements Initializable {
     }
 
 
-    public void ConfirmAddMovie(ActionEvent actionEvent) {
+    public void ConfirmEditMovie(ActionEvent actionEvent) {
         try {
             if (chosenMovie == null) return;
 
@@ -71,6 +71,7 @@ public class EditMovieController implements Initializable {
             chosenMovie.setLastPlayDate(LocalDateTime.now());
 
             System.out.println(chosenMovie.getLastPlayDate().toString());
+
 
             indexDataModel.editMovieConfirm(chosenMovie);
 
@@ -106,7 +107,7 @@ public class EditMovieController implements Initializable {
         return true;
     }
 
-    public void cancelAddSong(ActionEvent actionEvent) {
+    public void cancelAddMovie(ActionEvent actionEvent) {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }

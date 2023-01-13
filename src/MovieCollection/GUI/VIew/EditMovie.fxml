@@ -32,8 +32,8 @@
          </font>
       </Label>
       <TextField fx:id="txtInterpersonalScore" layoutX="130.0" layoutY="231.0" prefHeight="39.0" prefWidth="455.0" />
-      <Button fx:id="btnConfirm" layoutX="525.0" layoutY="286.0" mnemonicParsing="false" onAction="#ConfirmAddMovie" text="Confirm" />
-      <Button fx:id="btnCancel" layoutX="467.0" layoutY="286.0" mnemonicParsing="false" onAction="#cancelAddSong" text="Cancel" />
+      <Button fx:id="btnConfirm" layoutX="525.0" layoutY="286.0" mnemonicParsing="false" onAction="#ConfirmEditMovie" text="Confirm" />
+      <Button fx:id="btnCancel" layoutX="467.0" layoutY="286.0" mnemonicParsing="false" onAction="#cancelAddMovie" text="Cancel" />
       <ComboBox fx:id="comboBoxCategory" layoutX="132.0" layoutY="129.0" prefHeight="39.0" prefWidth="90.0" promptText="Cat" />
       <Button fx:id="btnAddCombobox" layoutX="234.0" layoutY="129.0" mnemonicParsing="false" onAction="#addComboBox" prefHeight="39.0" prefWidth="46.0" text="+" />
       <TextField fx:id="txtFieldCCat" editable="false" layoutX="293.0" layoutY="129.0" prefHeight="39.0" prefWidth="290.0" />

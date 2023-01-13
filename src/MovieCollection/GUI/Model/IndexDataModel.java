@@ -113,13 +113,9 @@ public class IndexDataModel {
         stage.showAndWait();
     }
 
-    public void editMovieConfirm(Movie movie) throws Exception{
-        if (movie == null) return;
-
-        manager.changeMovie(movie);
-
-        movieObservableList.clear();
-        movieObservableList.addAll(manager.getAllMovies());
+    public void editMovieConfirm(Movie chosenMovie) throws Exception{
+        if (chosenMovie == null) return;
+        manager.changeMovie(chosenMovie);
     }
 
     public void startPopUp() throws Exception {
