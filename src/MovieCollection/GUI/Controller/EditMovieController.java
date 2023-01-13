@@ -2,16 +2,13 @@ package MovieCollection.GUI.Controller;
 
 import MovieCollection.BE.Category;
 import MovieCollection.BE.Movie;
-import MovieCollection.BLL.Util.TupleMovie;
 import MovieCollection.GUI.Model.IndexDataModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,14 +29,12 @@ public class EditMovieController implements Initializable {
 
     private IndexDataModel indexDataModel;
     private ArrayList<Category> categories;
-    private TupleMovie tbMovie;
     private Movie chosenMovie;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
         categories = new ArrayList<>();
-        tbMovie = new TupleMovie();
 
         try {
             indexDataModel = new IndexDataModel();
@@ -77,7 +72,7 @@ public class EditMovieController implements Initializable {
 
             System.out.println(chosenMovie.getLastPlayDate().toString());
 
-            tbMovie.setTbMovie(chosenMovie);
+            indexDataModel.editMovieConfirm(chosenMovie);
 
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();

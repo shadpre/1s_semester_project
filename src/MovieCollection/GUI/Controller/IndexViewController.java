@@ -165,7 +165,7 @@ public class IndexViewController implements Initializable {
 
             indexDataModel.openAddCategoryWindow();
 
-            listViewCategory.refresh();
+            //listViewCategory.refresh();
         } catch (Exception e) {
             displayError(e);
         }

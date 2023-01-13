@@ -3,8 +3,6 @@ package MovieCollection.GUI.Model;
 import MovieCollection.BE.Category;
 import MovieCollection.BE.Movie;
 import MovieCollection.BLL.Manager;
-import MovieCollection.BLL.Util.TupleCategory;
-import MovieCollection.BLL.Util.TupleMovie;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -23,8 +21,6 @@ public class IndexDataModel {
     private ObservableList<Movie> movieObservableList;
     private ObservableList<Category> categoryObservableList;
     private ObservableList<Movie> movieObservableListByCategory;
-    private TupleMovie tbMovie;
-    private TupleCategory tbCat;
     private Manager manager;
 
 
@@ -35,9 +31,6 @@ public class IndexDataModel {
         movieObservableListByCategory = FXCollections.observableArrayList();
 
         manager = new Manager();
-
-        tbMovie = new TupleMovie();
-        tbCat = new TupleCategory();
 
         categoryObservableList.addAll(manager.getAllCategories());
         movieObservableList.addAll(manager.getAllMovies());
@@ -86,13 +79,13 @@ public class IndexDataModel {
         stage.setScene(new Scene(root1));
         stage.showAndWait();
 
+        System.out.println("movie Added");
+    }
 
-        Movie tbMovieWindowResult = tbMovie.getTbMovie();
-        if (tbMovieWindowResult == null || movieObservableList.contains(tbMovieWindowResult)) return;
+    public void addMovieConfirm(Movie movie) throws Exception {
+        if (movie == null || movieObservableList.contains(movie)) return;
 
-        movieObservableList.add(manager.addNewMovie(tbMovieWindowResult));
-
-        tbMovie.setTbMovie(null);
+        movieObservableList.add(manager.addNewMovie(movie));
     }
 
     public void openAddCategoryWindow() throws Exception {
@@ -102,12 +95,14 @@ public class IndexDataModel {
         stage.setScene(new Scene(root2));
         stage.showAndWait();
 
-        Category tbCategoryEWindowResult = tbCat.getCategory();
-        if (tbCategoryEWindowResult == null || categoryObservableList.contains(tbCategoryEWindowResult)) return;
+        categoryObservableList.clear();
+        categoryObservableList.addAll(manager.getAllCategories());
+    }
 
-        categoryObservableList.add(manager.addCategory(tbCategoryEWindowResult));
+    public void addCategoryConfirm(Category category) throws Exception {
+        if (category == null || categoryObservableList.contains(category)) return;
+        manager.addCategory(category);
 
-        tbCat.setCategory(null);
     }
 
     public void editMovie() throws Exception{
@@ -116,19 +111,15 @@ public class IndexDataModel {
         Stage stage = new Stage();
         stage.setScene(new Scene(root2));
         stage.showAndWait();
+    }
 
+    public void editMovieConfirm(Movie movie) throws Exception{
+        if (movie == null) return;
 
-        Movie tbMovieWindowResult = tbMovie.getTbMovie();
-        if (tbMovieWindowResult == null) return;
-
-        manager.changeMovie(tbMovieWindowResult);
+        manager.changeMovie(movie);
 
         movieObservableList.clear();
         movieObservableList.addAll(manager.getAllMovies());
-
-        tbMovie.setTbMovie(null);
-
-        //TODO Edit Movie
     }
 
     public void startPopUp() throws Exception {
