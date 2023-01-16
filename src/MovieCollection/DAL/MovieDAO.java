@@ -43,7 +43,7 @@ public class MovieDAO implements IMovieDAO{
 
                 Movie movie = new Movie(Name, imdb,personalRating,path,iD);
                 movie.setLastPlayDate(lastViewDate);
-                movie.setCategories(getCategories(movie));
+                getCategories(movie);
 
                 allMovies.add(movie);
             }
@@ -80,7 +80,7 @@ public class MovieDAO implements IMovieDAO{
 
                 Movie movie = new Movie(Name, imdb,personalRating,path,iD);
                 movie.setLastPlayDate(lastViewDate);
-                movie.setCategories(getCategories(movie));
+                getCategories(movie);
 
                 allMovies.add(movie);
             }
@@ -243,8 +243,8 @@ public class MovieDAO implements IMovieDAO{
      * @return
      * @throws Exception
      */
-    private ArrayList<Category> getCategories(Movie movie) throws Exception{
-        ArrayList<Category> MovieCategories = new ArrayList<>();
+    private void getCategories(Movie movie) throws Exception{
+        ArrayList<Category> movieCategories = new ArrayList<>();
 
         try (Connection connection = DatabaseConnector.getInstance().getConnection()){
             String query = "SELECT Id, Name FROM Category WHERE Id IN " +
@@ -254,12 +254,12 @@ public class MovieDAO implements IMovieDAO{
 
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
-                MovieCategories.add(new Category(
+                movieCategories.add(new Category(
                         rs.getString("Name"),
                         rs.getInt("Id")
                 ));
             }
         }
-        return MovieCategories;
+        movie.setCategories(movieCategories);
     }
 }
