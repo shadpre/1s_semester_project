@@ -17,6 +17,11 @@ import java.util.Date;
 import java.util.Locale;
 
 public class MovieDAO implements IMovieDAO{
+    private DateTimeFormatter formatter;
+    public MovieDAO() {
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    }
+
     @Override
     public ArrayList<Movie> getAllMovies() throws Exception {
 
@@ -29,8 +34,8 @@ public class MovieDAO implements IMovieDAO{
 
             ResultSet rs = stmt.executeQuery(sql);
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             Manager manager = new Manager();
+
             while(rs.next()) {
                 int iD = rs.getInt("Id");
                 String Name = rs.getString("Name");
@@ -68,7 +73,6 @@ public class MovieDAO implements IMovieDAO{
 
             ResultSet rs = stmt.executeQuery();
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             Manager manager = new Manager();
 
             while(rs.next()) {
@@ -103,7 +107,6 @@ public class MovieDAO implements IMovieDAO{
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             while(rs.next()) {
                 int iD = rs.getInt("Id");
