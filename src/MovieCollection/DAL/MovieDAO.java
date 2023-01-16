@@ -3,7 +3,6 @@ package MovieCollection.DAL;
 import MovieCollection.BE.Category;
 import MovieCollection.BE.Movie;
 import MovieCollection.BLL.DatabaseConnector;
-import MovieCollection.BLL.Manager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,8 +33,6 @@ public class MovieDAO implements IMovieDAO{
 
             ResultSet rs = stmt.executeQuery(sql);
 
-            Manager manager = new Manager();
-
             while(rs.next()) {
                 int iD = rs.getInt("Id");
                 String Name = rs.getString("Name");
@@ -46,7 +43,7 @@ public class MovieDAO implements IMovieDAO{
 
                 Movie movie = new Movie(Name, imdb,personalRating,path,iD);
                 movie.setLastPlayDate(lastViewDate);
-                movie.setCategories(manager.getCategoriesForMovie(movie));
+                movie.setCategories(getCategories(movie));
 
                 allMovies.add(movie);
             }
@@ -73,8 +70,6 @@ public class MovieDAO implements IMovieDAO{
 
             ResultSet rs = stmt.executeQuery();
 
-            Manager manager = new Manager();
-
             while(rs.next()) {
                 int iD = rs.getInt("Id");
                 String Name = rs.getString("Name");
@@ -85,7 +80,7 @@ public class MovieDAO implements IMovieDAO{
 
                 Movie movie = new Movie(Name, imdb,personalRating,path,iD);
                 movie.setLastPlayDate(lastViewDate);
-                movie.setCategories(manager.getCategoriesForMovie(movie));
+                movie.setCategories(getCategories(movie));
 
                 allMovies.add(movie);
             }
@@ -238,5 +233,33 @@ public class MovieDAO implements IMovieDAO{
                 throw ex;
             }
         }
+    }
+
+
+    /**
+     * This is duplicate code to avoid a infinite loop
+     * original is in category DAO
+     * @param movie
+     * @return
+     * @throws Exception
+     */
+    private ArrayList<Category> getCategories(Movie movie) throws Exception{
+        ArrayList<Category> MovieCategories = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnector.getInstance().getConnection()){
+            String query = "SELECT Id, Name FROM Category WHERE Id IN " +
+                    "(SELECT DISTINCT CategoryId FROM CatMovie WHERE MovieId = ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, movie.getiD());
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                MovieCategories.add(new Category(
+                        rs.getString("Name"),
+                        rs.getInt("Id")
+                ));
+            }
+        }
+        return MovieCategories;
     }
 }
