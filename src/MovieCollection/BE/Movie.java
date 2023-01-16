@@ -4,13 +4,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Movie {
-    String MovieTittle;
-    ArrayList<Category> Categories;
-    float imdbRating;
-    float personalRating;
-    String localFilePath;
-    int iD;
-    LocalDateTime lastPlayDate;
+    private String MovieTittle;
+    private ArrayList<Category> Categories;
+    private float imdbRating;
+    private float personalRating;
+    private String localFilePath;
+    private int iD;
+    private LocalDateTime lastPlayDate;
 
     public LocalDateTime getLastPlayDate() {
         return lastPlayDate;

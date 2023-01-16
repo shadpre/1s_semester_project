@@ -1,8 +1,8 @@
 package MovieCollection.BE;
 
 public class Category {
-    String catName;
-    int iD;
+    private String catName;
+    private int iD;
 
     public Category(String catName, int iD) {
         this.catName = catName;

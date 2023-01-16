@@ -5,6 +5,7 @@ import MovieCollection.GUI.Model.IndexDataModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -16,8 +17,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class PopUpDeleteController implements Initializable {
-    public ListView listViewDelete;
-    public Button btnConfirm;
+    @FXML private ListView listViewDelete;
+    @FXML private Button btnConfirm;
     private ObservableList moviesForDeletion;
     private IndexDataModel indexDataModel;
 
