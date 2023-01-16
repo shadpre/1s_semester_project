@@ -15,7 +15,6 @@ import javafx.scene.control.skin.TableHeaderRow;
 import javafx.util.Callback;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class IndexViewController implements Initializable {
@@ -38,6 +37,17 @@ public class IndexViewController implements Initializable {
     private IndexDataModel indexDataModel;
     private ObservableList<String> filterList;
 
+    /**
+     * Initialise the program with the data model and lunches the startup program, and listens to the filter.
+     *
+     * @param location
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param resources
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -78,6 +88,10 @@ public class IndexViewController implements Initializable {
         });
     }
 
+    /**
+     * display the error to the user.
+     * @param t
+     */
     private void displayError(Throwable t)
     {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -86,6 +100,9 @@ public class IndexViewController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * sends mesage to cthe model to launch the start window
+     */
     private void start() {
         try {
             indexDataModel.startPopUp();
@@ -93,6 +110,10 @@ public class IndexViewController implements Initializable {
             displayError(e);
         }
     }
+
+    /**
+     * set filter to combobox
+     */
     private void initFilterList() {
         filterList.add("Search");
         filterList.add("IMDB min");
@@ -101,6 +122,10 @@ public class IndexViewController implements Initializable {
 
         //TODO
     }
+
+    /**sets categories to the listview
+     * and opens movie dependent on selected category
+     */
     private void initCategories(){
         listViewCategory.setItems(indexDataModel.getCategoryObservableList());
 
@@ -116,6 +141,11 @@ public class IndexViewController implements Initializable {
             }
         });
     }
+
+    /**
+     * display the movies in columns dependent on data
+     * and tels data model to play a selected movie if double-clicked
+     */
     private void initTreeMovies(){
         tableViewMovies.widthProperty().addListener((source, oldWidth, newWidth) -> {
             TableHeaderRow header = (TableHeaderRow) tableViewMovies.lookup("TableHeaderRow");
@@ -148,6 +178,10 @@ public class IndexViewController implements Initializable {
         });
     }
 
+    /**
+     * tells the model that we want to add a movie
+     * @param actionEvent
+     */
     public void addMovie(ActionEvent actionEvent) {
         try {
             System.out.println("Add Movie");
@@ -159,6 +193,10 @@ public class IndexViewController implements Initializable {
         }
     }
 
+    /**
+     * tells the model that we want to add a category(cat)
+     * @param actionEvent
+     */
     public void addCategory(ActionEvent actionEvent) {
         try {
             System.out.println("Add Category");
@@ -171,6 +209,10 @@ public class IndexViewController implements Initializable {
         }
     }
 
+    /**
+     * Tells the model that we want to delete a category
+     * @param actionEvent
+     */
     public void deleteCategory(ActionEvent actionEvent) {
         try {
             System.out.println("Delete Category");
@@ -195,6 +237,10 @@ public class IndexViewController implements Initializable {
         }
     }
 
+    /**
+     * Tells the model that we want to delete a movie
+     * @param actionEvent
+     */
     public void deleteMovie(ActionEvent actionEvent) {
         try {
             System.out.println("Delete movies");
@@ -220,6 +266,11 @@ public class IndexViewController implements Initializable {
         }
     }
 
+    /**
+     * Tells the model that we want to edit a movie
+     * model then open movie window
+     * @param actionEvent
+     */
     public void editMovie(ActionEvent actionEvent) {
         try {
             System.out.println("Edit movies");
