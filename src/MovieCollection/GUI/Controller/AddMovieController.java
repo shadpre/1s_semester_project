@@ -17,17 +17,18 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AddMovieController implements Initializable {
-    @FXML  private TextField txtFieldTittle;
-    @FXML  private TextField txtFieldIMDBLink;
-    @FXML  private TextField txtInterpersonalScore;
-    @FXML  private Button btnSelectFile;
-    @FXML  private TextField txtFieldPath;
-    @FXML  private Button btnConfirm;
-    @FXML  private Button btnCancel;
-    @FXML  private ComboBox comboBoxCategory;
-    @FXML  private Button btnAddCombobox;
-    @FXML  private TextField txtFieldCCat;
-    @FXML  private Label lblDisplayMissingElement;
+    @FXML private Button btnSubCombobox1;
+    @FXML private TextField txtFieldTittle;
+    @FXML private TextField txtFieldIMDBLink;
+    @FXML private TextField txtInterpersonalScore;
+    @FXML private Button btnSelectFile;
+    @FXML private TextField txtFieldPath;
+    @FXML private Button btnConfirm;
+    @FXML private Button btnCancel;
+    @FXML private ComboBox comboBoxCategory;
+    @FXML private Button btnAddCombobox;
+    @FXML private TextField txtFieldCCat;
+    @FXML private Label lblDisplayMissingElement;
 
     private IndexDataModel indexDataModel;
     private ArrayList<Category> categories;
@@ -179,6 +180,25 @@ public class AddMovieController implements Initializable {
         }
     }
 
+    /**
+     * Removes category from the arrayList.
+     * @param actionEvent
+     */
+    public void subComboBox(ActionEvent actionEvent) {
+        try {
+            if (comboBoxCategory.getValue() == null) return;
+
+            categories.remove((Category) comboBoxCategory.getValue());
+            for (Category category: categories){
+                if (category == comboBoxCategory.getValue()){
+                    categories.remove(category);
+                }
+            }
+            txtFieldCCat.setText(String.valueOf(categories));
+        } catch (Exception e){
+            displayError(e);
+        }
+    }
 }
 
 
