@@ -22,6 +22,17 @@ public class PopUpDeleteController implements Initializable {
     private ObservableList moviesForDeletion;
     private IndexDataModel indexDataModel;
 
+    /**
+     * initialize window, and set the listview to display old movies that program recommend to be deleted
+     *
+     * @param location
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param resources
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         moviesForDeletion = FXCollections.observableArrayList();
@@ -43,6 +54,10 @@ public class PopUpDeleteController implements Initializable {
         listViewDelete.setItems(moviesForDeletion);
     }
 
+    /**
+     * Display error to user.
+     * @param t
+     */
     private void displayError(Throwable t)
     {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -51,9 +66,18 @@ public class PopUpDeleteController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * check if there uis any data to be deleted
+     * @return
+     */
     private boolean isThereData(){
         return moviesForDeletion != null && moviesForDeletion.isEmpty();
     }
+
+    /**
+     * closses window
+     * @param actionEvent
+     */
     public void closeWindow(ActionEvent actionEvent) {
         Stage stage = (Stage) btnConfirm.getScene().getWindow();
         stage.close();

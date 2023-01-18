@@ -35,8 +35,8 @@
       <Button fx:id="btnConfirm" layoutX="525.0" layoutY="286.0" mnemonicParsing="false" onAction="#ConfirmEditMovie" text="Confirm" />
       <Button fx:id="btnCancel" layoutX="467.0" layoutY="286.0" mnemonicParsing="false" onAction="#cancelAddMovie" text="Cancel" />
       <ComboBox fx:id="comboBoxCategory" layoutX="132.0" layoutY="129.0" prefHeight="39.0" prefWidth="90.0" promptText="Cat" />
-      <Button fx:id="btnAddCombobox" layoutX="234.0" layoutY="129.0" mnemonicParsing="false" onAction="#addComboBox" prefHeight="39.0" prefWidth="46.0" text="+" />
-      <TextField fx:id="txtFieldCCat" editable="false" layoutX="293.0" layoutY="129.0" prefHeight="39.0" prefWidth="290.0" />
+      <Button fx:id="btnAddCombobox" layoutX="232.0" layoutY="129.0" mnemonicParsing="false" onAction="#addComboBox" prefHeight="39.0" prefWidth="46.0" text="+" />
+      <TextField fx:id="txtFieldCCat" editable="false" layoutX="346.0" layoutY="129.0" prefHeight="39.0" prefWidth="237.0" />
       <Label fx:id="lblDisplayMissingElement" layoutX="28.0" layoutY="275.0" prefHeight="39.0" prefWidth="427.0" textFill="RED" />
       <Label layoutX="21.0" layoutY="14.0" prefHeight="59.0" prefWidth="121.0" text="  Movie:">
          <font>
@@ -44,5 +44,6 @@
          </font>
       </Label>
       <ComboBox fx:id="comboBoxMovie" layoutX="135.0" layoutY="24.0" onAction="#SetDefaultValues" prefHeight="39.0" prefWidth="90.0" promptText="Movie" />
+      <Button fx:id="btnSubCombobox1" layoutX="289.0" layoutY="129.0" mnemonicParsing="false" onAction="#subComboBox" prefHeight="39.0" prefWidth="46.0" text="-" />
    </children>
 </AnchorPane>

@@ -15,23 +15,35 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class EditMovieController implements Initializable {
-    @FXML ComboBox comboBoxMovie;
-    @FXML
-    private TextField txtFieldTittle;
-    @FXML  private TextField txtFieldIMDBLink;
-    @FXML  private TextField txtInterpersonalScore;
-    @FXML  private Button btnConfirm;
-    @FXML  private Button btnCancel;
-    @FXML  private ComboBox comboBoxCategory;
-    @FXML  private Button btnAddCombobox;
-    @FXML  private TextField txtFieldCCat;
-    @FXML  private Label lblDisplayMissingElement;
+    @FXML private Button btnSubCombobox1;
+    @FXML private ComboBox comboBoxMovie;
+    @FXML private TextField txtFieldTittle;
+    @FXML private TextField txtFieldIMDBLink;
+    @FXML private TextField txtInterpersonalScore;
+    @FXML private Button btnConfirm;
+    @FXML private Button btnCancel;
+    @FXML private ComboBox comboBoxCategory;
+    @FXML private Button btnAddCombobox;
+    @FXML private TextField txtFieldCCat;
+    @FXML private Label lblDisplayMissingElement;
 
     private IndexDataModel indexDataModel;
     private ArrayList<Category> categories;
     private Movie chosenMovie;
 
 
+    /**
+     * gets categories and saves them in a list
+     * get current movies that can be changed and saves them in a list
+     *
+     * @param location
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param resources
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources){
         categories = new ArrayList<>();
@@ -45,6 +57,10 @@ public class EditMovieController implements Initializable {
         comboBoxMovie.setItems(indexDataModel.getMovieObservableList());
     }
 
+    /**
+     * displays the error to the user
+     * @param t
+     */
     private void displayError(Throwable t)
     {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -53,7 +69,12 @@ public class EditMovieController implements Initializable {
         alert.showAndWait();
     }
 
-
+    /**
+     * checks if the changes is valid
+     * if they are it saves the changes.
+     * if they are not, it prints a message to user
+     * @param actionEvent
+     */
     public void ConfirmEditMovie(ActionEvent actionEvent) {
         try {
             if (chosenMovie == null) return;
@@ -82,6 +103,14 @@ public class EditMovieController implements Initializable {
         }
     }
 
+    /**
+     * cheks if data is valid
+     * @param name
+     * @param cat
+     * @param imdb
+     * @param personal
+     * @return
+     */
     private boolean checkData(String name, ArrayList<Category> cat, float imdb, float personal){
         if (chosenMovie == null) {
             lblDisplayMissingElement.setText("Chose A Movie");
@@ -107,11 +136,19 @@ public class EditMovieController implements Initializable {
         return true;
     }
 
+    /**
+     * classes window
+     * @param actionEvent
+     */
     public void cancelAddMovie(ActionEvent actionEvent) {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * adds the selected category to movie
+     * @param actionEvent
+     */
     public void addComboBox(ActionEvent actionEvent) {
         try {
             if (comboBoxCategory.getValue() == null) return;
@@ -125,6 +162,32 @@ public class EditMovieController implements Initializable {
         }
     }
 
+    /**
+     * Removes category from the arrayList.
+     * @param actionEvent
+     */
+    public void subComboBox(ActionEvent actionEvent) {
+        try {
+            if (comboBoxCategory.getValue() == null) return;
+
+            categories.remove((Category) comboBoxCategory.getValue());
+            for (Category category: categories){
+                if (category.getCatName().equals(((Category) comboBoxCategory.getValue()).getCatName())){
+                    categories.remove(category);
+                }
+            }
+            txtFieldCCat.setText(String.valueOf(categories));
+        } catch (Exception e){
+            displayError(e);
+        }
+    }
+
+
+    /**
+     * sets the data from the selected movie, so there can be made changes.
+     * @param actionEvent
+     * @throws Exception
+     */
     public void SetDefaultValues(ActionEvent actionEvent) throws Exception{
         try {
             chosenMovie = (Movie) comboBoxMovie.getValue();

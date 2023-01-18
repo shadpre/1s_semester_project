@@ -20,6 +20,16 @@ public class AddCategoryController implements Initializable {
     @FXML private Button btnCancel;
     private IndexDataModel indexDataModel;
 
+    /**
+     * initialise controller
+     * @param location
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param resources
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -29,6 +39,10 @@ public class AddCategoryController implements Initializable {
         }
     }
 
+    /**
+     * Displays error  to the User
+     * @param t
+     */
     private void displayError(Throwable t)
     {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -37,6 +51,10 @@ public class AddCategoryController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * saves the data to a new categories and classes the window
+     * @param actionEvent
+     */
     public void ConfirmAddMovie(ActionEvent actionEvent) {
         String catName = txtFieldCategoryName.getText();
         Category category = new Category(catName, -1);
@@ -51,6 +69,10 @@ public class AddCategoryController implements Initializable {
         stage.close();
     }
 
+    /**
+     * classes the window
+     * @param actionEvent
+     */
     public void cancelAddSong(ActionEvent actionEvent) {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
