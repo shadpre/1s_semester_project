@@ -10,7 +10,14 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+
 public class CategoryDAO implements ICategoryDAO{
+    /**
+     *Creates a new category in DB
+     * @param category
+     * @return ID of the new Category
+     * @throws Exception
+     */
     @Override
     public int createCategory(String category) throws Exception {
 
@@ -33,6 +40,12 @@ public class CategoryDAO implements ICategoryDAO{
         return -1;
     }
 
+    /**
+     * Get the category from DB by ID
+     * @param id
+     * @return The category
+     * @throws Exception
+     */
     @Override
     public Category getCategory(int id) throws Exception {
 
@@ -52,6 +65,11 @@ public class CategoryDAO implements ICategoryDAO{
         return null;
     }
 
+    /**
+     * Get a list of all categories in the DB
+     * @return List of categories
+     * @throws Exception
+     */
     @Override
     public ArrayList<Category> getAllCategories() throws Exception {
         ArrayList<Category> allCategories = new ArrayList<>();
@@ -83,6 +101,11 @@ public class CategoryDAO implements ICategoryDAO{
         return 0;
     }
 
+    /**
+     * Deletes category and relations from the DB from the ID
+     * @param id
+     * @throws Exception
+     */
     @Override
     public void deleteCategory(int id) throws Exception {
 
@@ -106,6 +129,12 @@ public class CategoryDAO implements ICategoryDAO{
 
     }
 
+    /**
+     * Returns a list of categories for a specific movie
+     * @param movie
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<Category> getCategoriesByMovie(Movie movie) throws Exception{
         ArrayList<Category> MovieCategories = new ArrayList<>();

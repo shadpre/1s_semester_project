@@ -21,6 +21,11 @@ public class MovieDAO implements IMovieDAO{
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     }
 
+    /**
+     * Return all movies form the DB
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<Movie> getAllMovies() throws Exception {
 
@@ -56,6 +61,12 @@ public class MovieDAO implements IMovieDAO{
 
     }
 
+    /**
+     * Returns a list of movies for a specific category
+     * @param categoryId
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<Movie> getMoviesByCategory(int categoryId) throws Exception{
 
@@ -92,6 +103,11 @@ public class MovieDAO implements IMovieDAO{
         return allMovies;
     }
 
+    /**
+     * Return a list of movies to delete where they are not seen in 2 years and personal rating under 6
+     * @return
+     * @throws Exception
+     */
     @Override
     public  ArrayList<Movie> getMoviesForDeletion() throws Exception{
         ArrayList<Movie> allMovies = new ArrayList<>();
@@ -123,7 +139,11 @@ public class MovieDAO implements IMovieDAO{
         return allMovies;
     }
 
-
+    /**
+     * Deletes a movie and relations from the DB
+     * @param id
+     * @throws Exception
+     */
     @Override
     public void deleteMovie(int id) throws Exception {
 
@@ -147,6 +167,12 @@ public class MovieDAO implements IMovieDAO{
         }
     }
 
+    /**
+     * Creates a Movie in the DB and returns the new ID
+     * @param movie
+     * @return
+     * @throws Exception
+     */
     @Override
     public int createMovie(Movie movie) throws Exception {
 
@@ -181,6 +207,11 @@ public class MovieDAO implements IMovieDAO{
         return -1;
     }
 
+    /**
+     * Updates a Movie in the DB
+     * @param movie
+     * @throws Exception
+     */
     @Override
     public void updateMovie(Movie movie) throws Exception {
 
@@ -218,6 +249,11 @@ public class MovieDAO implements IMovieDAO{
         }
     }
 
+    /**
+     * Updates the viewdate in the DB
+     * @param id
+     * @throws Exception
+     */
     @Override
     public void setViewDate(int id) throws Exception{
         try (Connection connection = DatabaseConnector.getInstance().getConnection()){

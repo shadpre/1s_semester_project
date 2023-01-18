@@ -12,14 +12,30 @@ public class Movie {
     private int iD;
     private LocalDateTime lastPlayDate;
 
+    /**
+     *
+     * @return
+     */
     public LocalDateTime getLastPlayDate() {
         return lastPlayDate;
     }
 
+    /**
+     *
+     * @param lastPlayDate
+     */
     public void setLastPlayDate(LocalDateTime lastPlayDate) {
         this.lastPlayDate = lastPlayDate;
     }
 
+    /**
+     *
+     * @param movieTittle
+     * @param imdbRating
+     * @param personalRating
+     * @param localFilePath
+     * @param iD
+     */
     public Movie(String movieTittle, float imdbRating, float personalRating, String localFilePath, int iD) {
         MovieTittle = movieTittle;
         this.imdbRating = imdbRating;
